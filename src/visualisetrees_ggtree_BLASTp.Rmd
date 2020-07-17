@@ -1,0 +1,327 @@
+---
+title: "Trees for Ssd1 and Dis3-like eukaryotic proteins"
+author: "Edward Wallace"
+date: "13/07/2020"
+output: 
+  html_document:
+      toc: true
+---
+
+# Summary
+
+This document is to analyse phylogenetic trees produced for Dis3/Dis3L1/Dss1/Ssd1/Dis3L2 homologues from the curated BLASTp list.
+
+Full raw sequences are in: *data/BLASTp/BLASTpSsd1Dis3L2_BLASTp_76species_filteredbyhand_fullseqs.fasta*.
+
+File *data/BLASTp/Ssd1Dis3L2_BLASTp_76species_filteredbyhand_fullseqs_mafft_trimalstrong.fasta* has the mafft-default-aligned, reordered, trimmed sequences. We ran IQ-TREE and RaxML on those alignments. This document analyses the IQ-TREE results, and produces figure 1 of the manuscript.
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(here)
+library(tidyverse)
+library(ggtree)
+library(treeio)
+library(Biostrings)
+library(ggseqlogo)
+```
+
+## Load IQ-TREE results
+
+This loads the maximum likelihood tree calculated by IQ-TREE.
+
+```{r load_IQTREE}
+treefile_IQML <- here::here("data",
+                            "IQ-TREE_Ssd1Dis3L2_76bh",
+                            "output.treefile")
+tree_IQML <- treeio::read.tree(treefile_IQML)
+```
+
+## Reroot tree to amoeba RNII-Like proteins
+
+There are some outlying amoebozoan RNII-Like proteins (aRNIIL), which we can use as an outgroup. Plotting this large so we can see the names.
+
+```{r reroot_IQML,dependson="load_IQTREE",fig.width=7,fig.height=9}
+amoeba_outgroup_MRCA_orig <- tidytree::MRCA(tree_IQML,"XP_003293188.1","XP_004351761.1")
+
+tree_IQML_amoebaroot <- ape::root(tree_IQML,
+                                   node=amoeba_outgroup_MRCA_orig)
+
+amoeba_outgroup_MRCA <- tidytree::MRCA(tree_IQML_amoebaroot,
+                             "XP_003293188.1","XP_004351761.1")
+```
+
+## Plot rerooted tree with ggtree defaults
+
+```{r plot_IQML_rerooted,dependson="reroot_IQML",echo=FALSE}
+ggtree(tree_IQML_amoebaroot) + 
+    geom_tiplab(size=1.6) + 
+    geom_treescale() +
+    geom_nodepoint(aes(colour=as.numeric(label)),size=1) +
+    scale_colour_gradient("bootstrap\nsupport",low="grey95",high="black")+
+    theme(legend.position=c(.1,.8))
+```
+
+## Find Most Recent Common Ancestors (MRCA) of Dis3 sub-families
+
+We found most recent common ancestors of the big groups: Dis3, Dis3L1, Dss1, Dis3L2.
+
+```{r find_Dis3groups_reroot,dependson="reroot_IQML"}
+
+Dis3_MRCA   <- tidytree::MRCA(tree_IQML_amoebaroot,"NP_014621.1","NP_597581.1")
+Dis3_offspring  <- tidytree::offspring(tree_IQML_amoebaroot,Dis3_MRCA)
+Dis3L1_MRCA <- tidytree::MRCA(tree_IQML_amoebaroot,"NP_001137160.1","XP_020429451.1")
+Dis3L1_offspring  <- tidytree::offspring(tree_IQML_amoebaroot,Dis3L1_MRCA)
+Dis3L2_MRCA <- tidytree::MRCA(tree_IQML_amoebaroot,"O14040.1","NP_612012.1")
+Dis3L2_offspring  <- tidytree::offspring(tree_IQML_amoebaroot,Dis3L2_MRCA)
+Dss1_MRCA <- tidytree::MRCA(tree_IQML_amoebaroot,"NP_014014.1","XP_643697.1") #"XP_636708.1")
+
+Dis3_clades <- c(aRNIIL = amoeba_outgroup_MRCA,
+                 Dis3 = Dis3_MRCA, 
+                 Dis3L1 = Dis3L1_MRCA,
+                 Dis3L2 = Dis3L2_MRCA,
+                 Dss1 = Dss1_MRCA)
+
+Dis3_colours <- c("0" = "grey50",
+                  aRNIIL = "grey10",
+                  Dis3 = "green3", 
+                  Dis3L1 = "cyan3",
+                  Dis3L2 = "red",
+                  Dss1 = "goldenrod")
+```
+
+## Plot big tree figure with names and clades
+
+Here we use:
+
+* `groupClade` to colour the *branches* by clade
+* `geom_cladelabel` to draw the clade labels to the right of the branch
+* `geom_nodepoint` to draw bootstrap support values at nodes
+
+I did not use "equal_angle" or "unrooted" display here, because various annotations or ggtree functions did not work for those.
+
+```{r plot_Dis3groups_reroot_colours,dependson="find_Dis3groups_reroot"}
+ggtree(tidytree::groupClade(tree_IQML_amoebaroot,Dis3_clades),
+       aes(colour=group)) + 
+  scale_color_manual(values=Dis3_colours,guide = FALSE) + 
+  geom_cladelabel(node=Dis3_MRCA, label="Dis3", 
+                  color=Dis3_colours["Dis3"], 
+                  fontsize=6,offset=0.5)  + 
+  geom_cladelabel(node=Dis3L1_MRCA, label="Dis3L1", 
+                  color=Dis3_colours["Dis3L1"], 
+                  fontsize=6, offset=.1)  + 
+  geom_cladelabel(node=Dis3L2_MRCA, label="Dis3L2",
+                  color=Dis3_colours["Dis3L2"], 
+                  fontsize=6, offset=.5)  + 
+  geom_cladelabel(node=Dss1_MRCA, label="Dss1", 
+                  color=Dis3_colours["Dss1"], 
+                  fontsize=6, offset=.1)  + 
+  geom_cladelabel(node=amoeba_outgroup_MRCA, label="aRNIIL", 
+                  color=Dis3_colours["aRNIIL"], 
+                  fontsize=4,offset=0.1)  + 
+  ggnewscale::new_scale_color() + 
+  geom_nodepoint(aes(colour=as.numeric(label)),size=1) +
+  scale_colour_gradient("bootstrap\nsupport",low="grey95",high="black") +
+  coord_cartesian(clip="off") + 
+  scale_y_continuous(expand=c(0.02,0.02)) + 
+  scale_x_continuous(expand=c(0.01,0.01)) +
+  theme(legend.position=c(0.1,0.8),
+        plot.margin=margin(t=5,r = 40, b=5, l=5),
+        axis.line.x.bottom = element_line(size=0.5,colour="black"),
+        axis.ticks.x.bottom = element_line(size=0.5,colour="black"),
+        axis.text.x = element_text(size=10,colour="black"))
+```
+
+## Plot tree in equal angle summary figure
+
+```{r plot_Dis3groups_reroot_equalangle,dependson="find_Dis3groups_reroot",fig.height=3,fig.width=3}
+ggt_Dis3groups_reroot_equalangle <- 
+  ggtree(tidytree::groupClade(tree_IQML_amoebaroot,Dis3_clades),
+       aes(colour=group),
+       layout="equal_angle") + 
+  scale_color_manual("Ortholog\ngroup",
+                     values=Dis3_colours, 
+                     breaks=names(Dis3_colours)[2:6]) + 
+  theme(legend.position=c(0.85,0.25))
+
+ggt_Dis3groups_reroot_equalangle
+```
+
+### Extract Dis3L2 clade and plot sub-tree
+
+```{r plot_subset_Dis3L2,dependson="find_Dis3groups_reroot"}
+tree_Dis3L2 <- treeio::tree_subset(tree_IQML_amoebaroot,Dis3L2_MRCA,levels_back=0)
+
+ggtree(tree_Dis3L2) +
+  geom_nodepoint(aes(colour=as.numeric(label)),size=1) +
+  scale_colour_gradient("bootstrap\nsupport",low="grey95",high="black") +
+  geom_tiplab(size=2)
+```
+
+## Get tree order
+
+This orders the data underlying the tree in the same order as the tips are displayed in the phylogenetic tree. It uses a trick that `ggtree::ggtree` creates an internal data frame that includes the y-coordinate used to display each node, so that `dplyr::arrange(y)` arranges the data frame in display order. We then use `dplyr::pull` to extract labels/sequence ids, which we will later use to put sequences in the same order.
+
+```{r get_tree_order,dependson="find_Dis3groups_reroot"}
+tree_IQML_amoebaroot_data_order <- 
+  groupClade(tree_IQML_amoebaroot,Dis3_clades) %>%
+  ggtree %>% 
+  .$data %>%
+  filter(isTip) %>%
+  arrange(y)
+tree_IQML_amoebaroot_data_order
+```
+
+## Output sequences in tree order for subsequent alignment of families
+
+```{r output_Dis3_families,dependson="get_tree_order"}
+# load the full sequences
+BLASTp_76sp_fullseqs <- here::here("data", 
+                                   "BLASTp",
+                                   "Ssd1Dis3L2_BLASTp_76species_filteredbyhand_fullseqs.fasta"
+                                   ) %>%
+  Biostrings::readAAStringSet()
+
+# set the full sequence names to just be the first "word" - the sequence id
+names(BLASTp_76sp_fullseqs) <-
+  stringr::str_extract(names(BLASTp_76sp_fullseqs),
+                       "[\\w.]+")
+
+# define output directory
+Dis3_families_dir <- here::here("data","Dis3_families")
+
+# full sequences of Dis3 group
+Dis3_ordered_fullseqs <- tree_IQML_amoebaroot_data_order %>%
+  filter(group=="Dis3") %>%
+  pull(label) %>%
+  BLASTp_76sp_fullseqs[.]
+
+# write to fasta file
+Biostrings::writeXStringSet(Dis3_ordered_fullseqs,
+                            paste0(Dis3_families_dir, "/", 
+                                   "Dis3_BLASTp_select_fullseqs.fasta") )
+
+# full sequences of Dis3L1 group
+Dis3L1_ordered_fullseqs <- tree_IQML_amoebaroot_data_order %>%
+  filter(group=="Dis3L1") %>%
+  pull(label) %>%
+  BLASTp_76sp_fullseqs[.]
+
+# write to fasta file
+Biostrings::writeXStringSet(Dis3L1_ordered_fullseqs,
+                            paste0(Dis3_families_dir, "/", 
+                                   "Dis3L1_BLASTp_select_fullseqs.fasta"))
+
+# full sequences of Dis3L2 group
+Dis3L2_ordered_fullseqs <- tree_IQML_amoebaroot_data_order %>%
+  filter(group=="Dis3L2") %>%
+  pull(label) %>%
+  # The C. glabrata homolog "XP_446854.1" was missing from the tree data???
+  # intersect(names(BLASTp_76sp_fullseqs)) %>% 
+  BLASTp_76sp_fullseqs[.]
+
+Biostrings::writeXStringSet(Dis3L2_ordered_fullseqs,
+                            paste0(Dis3_families_dir, "/", 
+                                   "Dis3L2_BLASTp_select_fullseqs.fasta"))
+
+# full sequences of Dss1 group
+Dss1_ordered_fullseqs <- tree_IQML_amoebaroot_data_order %>%
+  filter(group=="Dss1") %>%
+  pull(label) %>%
+  BLASTp_76sp_fullseqs[.]
+
+Biostrings::writeXStringSet(Dss1_ordered_fullseqs,
+                            paste0(Dis3_families_dir, "/", 
+                                   "Dss1_BLASTp_select_fullseqs.fasta"))
+
+# full sequences of aRNIIL group
+aRNIIL_ordered_fullseqs <- tree_IQML_amoebaroot_data_order %>%
+  filter(group=="aRNIIL") %>%
+  pull(label) %>%
+  BLASTp_76sp_fullseqs[.]
+
+Biostrings::writeXStringSet(aRNIIL_ordered_fullseqs,
+                            paste0(Dis3_families_dir, "/", 
+                                   "aRNIIL_BLASTp_select_fullseqs.fasta"))
+```
+
+## Sequence logos of active sites from subfamilies
+
+Here we select the subsequence alignment covering the RNII/RNB-domain active site. This was selected by visual inspection of the alignment, with reference to Malecki 2013.
+
+Note we use `Biostrings::readAAStringSet()` to load, even though it is a multiple sequence alignment.
+
+```{r seqlogo_activeRNIIall,dependson="output_Dis3_families",fig.height=1, fig.width=3}
+BLASTp_76sp_mafftrimal <- 
+  here::here("data", 
+             "BLASTp",
+             "Ssd1Dis3L2_BLASTp_76species_filteredbyhand_fullseqs_mafft_trimalstrong.fasta"
+  ) %>%
+  Biostrings::readAAStringSet()
+
+# co-ordinates of start and end of active site in 
+activesitestart <- 664
+activesiteend   <- 691
+
+# Plot sequence logo for entire alignment
+BLASTp_76sp_mafftrimal %>%
+  Biostrings::subseq(start=activesitestart,end=activesiteend) %>%
+  as.character() %>%
+  ggseqlogo::ggseqlogo(method="probability",
+                       seq_type = "aa",col_scheme="clustalx")
+```
+
+```{r seqlogo_activeRNIIgroup,dependson=c("get_tree_order","seqlogo_activeRNIIall"),fig.height=3, fig.width=3}
+collect_subseqs_ascharacter <- function(ingroup, indata, seqs) {
+  # collect subsequences corresponding to a group, as character vectors
+  #   ingroup : value of group field in indata
+  #   indata : a tibble/data frame with columns group, label
+  #   seqs : a named list of sequences, with names as in indata$label
+  indata %>%
+    dplyr::filter(group==ingroup) %>%
+    dplyr::pull(label) %>%
+    seqs[.] %>%
+    as.character()
+}
+
+# Make a list, each element represents a group (Dis3 family),
+# contents are the active site sequences for that group.
+# we exclude aRNIIL, because it has only 4 members here
+activesite_listseqbygroup <- 
+  sapply(names(Dis3_clades)[2:5],
+         collect_subseqs_ascharacter,
+         indata = tree_IQML_amoebaroot_data_order,
+         seqs = 
+           BLASTp_76sp_mafftrimal %>%
+           Biostrings::subseq(start=activesitestart,end=activesiteend) %>%
+           as.character()
+  )
+
+# plot consensus sequences of active site for each group
+ggs_activesitebygroup <- 
+  ggseqlogo::ggseqlogo(activesite_listseqbygroup,
+                       method="probability",
+                       scales="free",seq_type = "aa",
+                       col_scheme="clustalx",ncol=1) +
+  theme(axis.title.y = element_blank(),axis.text.y = element_blank(),
+        axis.text.x = element_blank())
+
+ggs_activesitebygroup
+```
+
+### Composite figure, Figure 1 of manuscript
+
+```{r figure1_Dis3cladesAB,dependson=c("plot_Dis3groups_reroot_equalangle","seqlogo_activeRNIIgroup"), fig.height=3, fig.width=6}
+cowplot::plot_grid(ggt_Dis3groups_reroot_equalangle,
+          ggs_activesitebygroup,
+          nrow=1,labels=c("A","B"))
+```
+
+
+# Session Info
+
+Package versions, etc., that ran this file.
+
+```{r session_info,results="show",message=TRUE}
+sessionInfo()
+```
+
