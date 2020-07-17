@@ -1,0 +1,14 @@
+Task\ label=IQ-TREE Ssd1Dis3L2_76bh_trimSTRONG
+Task\ ID=2173437
+Tool=IQTREE_XSEDE
+created\ on=2020-05-09 08:35:36.0
+JobHandle=NGBW-JOB-IQTREE_XSEDE-B83DB168C47F4BF591B2B8F1372F0C01
+RunNumber=1
+resource=comet
+User\ ID=126101
+User\ Name=ewjwallace
+email=edward.wallace@ed.ac.uk
+Output=(results,*,UNKNOWN,UNKNOWN,UNKNOWN)
+ChargeFactor=1.000000
+cores=24
+JOBID=33239078

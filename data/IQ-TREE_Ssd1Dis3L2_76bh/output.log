@@ -1,0 +1,449 @@
+IQ-TREE multicore version 1.6.10 for Linux 64-bit built Feb 19 2019
+Developed by Bui Quang Minh, Nguyen Lam Tung, Olga Chernomor,
+Heiko Schmidt, Dominik Schrempf, Michael Woodhams.
+
+Host:    comet-08-46.sdsc.edu (AVX2, FMA3, 125 GB RAM)
+Command: iqtree -s infile.txt -bb 1000 -bnni -wbt -st AA -wbtl -mset LG -nt AUTO -pre output
+Seed:    401302 (Using SPRNG - Scalable Parallel Random Number Generator)
+Time:    Sat May  9 08:40:48 2020
+Kernel:  AVX+FMA - auto-detect threads (24 CPU cores detected)
+
+Reading alignment file infile.txt ... Fasta format detected
+Alignment most likely contains protein sequences
+Alignment has 223 sequences with 1222 columns, 1222 distinct patterns
+1218 parsimony-informative, 4 singleton sites, 0 constant sites
+                Gap/Ambiguity  Composition  p-value
+   1  NP_010579.1      17.92%    passed     15.72%
+   2  XP_446854.1      16.78%    passed     48.71%
+   3  NP_982470.1      18.25%    passed     14.33%
+   4  XP_452671.1      20.79%    failed      4.25%
+   5  XP_721868.2      16.28%    passed     11.79%
+   6  XP_462426.1      15.30%    failed      3.21%
+   7  XP_028889211.1   15.71%    failed      1.83%
+   8  ODV97345.1       15.14%    failed      0.42%
+   9  XP_002491774.1   21.03%    passed     32.64%
+  10  XP_505385.1      18.33%    failed      0.00%
+  11  ODV91698.1       20.70%    failed      0.65%
+  12  SMY19906.1       15.71%    failed      0.04%
+  13  XP_001797133.1   15.38%    failed      0.01%
+  14  XP_001590366.1   15.55%    failed      0.00%
+  15  XP_961563.2      16.28%    failed      0.00%
+  16  XP_011326696.1   21.77%    failed      0.01%
+  17  EEH08335.1       15.71%    failed      0.02%
+  18  XP_001243079.2   15.79%    failed      0.00%
+  19  XP_752507.1      16.04%    failed      0.04%
+  20  XP_658762.1      16.12%    failed      0.01%
+  21  CRL22673.1       16.28%    failed      0.00%
+  22  XP_002839150.1   17.84%    failed      0.00%
+  23  ORY78509.1       20.62%    failed      0.01%
+  24  ODQ70873.1       17.92%    failed      0.22%
+  25  XP_019020799.1   17.35%    failed      0.02%
+  26  GAO51867.1       17.92%    failed      0.11%
+  27  XP_003324138.1   18.58%    failed      0.86%
+  28  XP_007329347.1   21.60%    passed     17.21%
+  29  EGO01908.1       24.22%    failed      1.68%
+  30  XP_012050922.1   13.99%    passed      5.69%
+  31  XP_011387156.1   19.15%    failed      0.05%
+  32  RIB17962.1       18.00%    passed     47.06%
+  33  EXX74607.1       18.00%    passed     37.75%
+  34  OAQ31519.1       36.82%    passed     99.32%
+  35  OAQ23985.1       23.00%    passed     85.16%
+  36  XP_021880184.1   23.65%    passed     69.42%
+  37  CDH60523.1       22.09%    passed     16.70%
+  38  XP_018293059.1   42.72%    passed     50.30%
+  39  OBZ90828.1       24.30%    failed      2.90%
+  40  EPB92428.1       34.45%    passed     56.08%
+  41  EIE79534.1       25.20%    failed      0.01%
+  42  XP_018297613.1   32.16%    passed     11.55%
+  43  EPB81809.1       29.05%    passed     28.97%
+  44  OBZ83463.1       32.08%    passed     25.98%
+  45  EIE87097.1       34.04%    passed     29.78%
+  46  XP_016610762.1   19.15%    passed     68.89%
+  47  ORY51419.1       19.89%    passed     30.04%
+  48  CDH55297.1       26.19%    passed     14.11%
+  49  XP_001744174.1   54.26%    failed      3.37%
+  50  CDH58442.1       18.74%    passed     56.78%
+  51  CDH53421.1       20.05%    passed     31.94%
+  52  XP_018295507.1   36.09%    passed     65.17%
+  53  OBZ81863.1       20.21%    passed     20.08%
+  54  EPB91856.1       19.48%    passed     10.34%
+  55  EIE78579.1       20.13%    passed     75.88%
+  56  XP_018288856.1   35.27%    failed      3.55%
+  57  CDH57086.1       20.95%    passed     13.85%
+  58  EPB83540.1       22.26%    passed     45.80%
+  59  OBZ88622.1       22.42%    passed     76.77%
+  60  EIE84692.1       24.14%    passed     92.24%
+  61  EIE90034.1       23.40%    passed     90.58%
+  62  OBZ85465.1       30.44%    passed     23.72%
+  63  EPB85527.1       37.89%    passed     81.70%
+  64  CDH59155.1       22.18%    passed     82.86%
+  65  XP_018299381.1   19.64%    failed      0.13%
+  66  EIE86185.1       34.86%    failed      0.04%
+  67  XP_030837613.1   26.60%    passed      7.16%
+  68  NP_689596.4      35.84%    passed      6.19%
+  69  XP_004996901.1   27.50%    failed      0.00%
+  70  PIA17543.1       37.48%    failed      0.08%
+  71  KNE56473.1       18.33%    failed      0.00%
+  72  KNE54823.1       18.33%    failed      0.00%
+  73  XP_006676968.1   26.02%    passed     22.00%
+  74  XP_004343707.2   19.48%    failed      0.00%
+  75  XP_004367466.1   22.09%    failed      0.00%
+  76  CDH60622.1       30.03%    failed      0.00%
+  77  OBZ83949.1       33.14%    passed     30.06%
+  78  EPB90552.1       25.37%    passed     65.24%
+  79  EIE80403.1       63.01%    passed     33.16%
+  80  ORY85672.1       17.68%    failed      0.00%
+  81  O14040.1         31.91%    failed      0.00%
+  82  XP_002175003.1   36.50%    passed      6.28%
+  83  NP_498160.2      35.76%    passed     77.73%
+  84  XP_001728646.1   27.99%    failed      0.00%
+  85  XP_020435989.1   22.83%    failed      0.00%
+  86  XP_641919.1      21.69%    failed      0.00%
+  87  XP_003283598.1   21.36%    failed      0.00%
+  88  XP_004361707.1   32.24%    failed      0.12%
+  89  ORX43377.1       13.18%    failed      0.00%
+  90  ORY24922.1       40.26%    failed      0.00%
+  91  ORY56506.1       19.80%    failed      0.00%
+  92  ORX85520.1       13.01%    failed      0.00%
+  93  KXN68223.1       15.96%    failed      0.00%
+  94  CDH51568.1       23.49%    passed     45.66%
+  95  OBZ91583.1       37.97%    passed     68.73%
+  96  XP_018298524.1   32.65%    passed     11.09%
+  97  OAQ29610.1       22.83%    passed     27.21%
+  98  XP_021883488.1   22.75%    failed      3.41%
+  99  ORX48176.1       34.45%    failed      0.00%
+ 100  ORX81012.1       24.63%    failed      0.00%
+ 101  ORY36765.1       24.63%    failed      0.00%
+ 102  PIA16743.1       40.43%    failed      0.00%
+ 103  NP_001137160.1   24.80%    failed      2.63%
+ 104  XP_030832821.1   25.45%    passed      7.78%
+ 105  XP_004996997.1   24.55%    failed      2.45%
+ 106  XP_001744179.1   25.45%    failed      0.10%
+ 107  OBZ89871.1       25.20%    passed     46.73%
+ 108  EPB82799.1       24.06%    passed     13.10%
+ 109  CDH60378.1       24.14%    passed     20.53%
+ 110  XP_018291713.1   23.65%    passed      8.65%
+ 111  OAQ32362.1       22.83%    passed     86.85%
+ 112  XP_021883468.1   28.31%    passed     49.68%
+ 113  RIB08808.1       30.36%    passed     80.74%
+ 114  EXX59222.1       23.08%    passed     57.77%
+ 115  ORY24609.1       24.06%    failed      0.72%
+ 116  ORX84255.1       23.08%    failed      0.36%
+ 117  ORX43308.1       23.00%    failed      0.60%
+ 118  XP_016612102.1   24.30%    failed      4.15%
+ 119  XP_006679077.1   25.37%    passed     10.06%
+ 120  KNE63777.1       24.06%    failed      0.00%
+ 121  KNE71922.1       24.06%    failed      0.00%
+ 122  PIA18366.1       23.16%    passed     62.44%
+ 123  KXN68087.1       23.73%    passed      5.34%
+ 124  ORY48228.1       27.09%    failed      4.97%
+ 125  NP_001262910.1   24.22%    passed     24.83%
+ 126  NP_055768.3      24.55%    passed     22.41%
+ 127  XP_030836972.1   31.67%    passed     80.06%
+ 128  RKP20466.1       32.65%    passed     11.12%
+ 129  EPZ33168.1       25.12%    failed      2.59%
+ 130  XP_004347431.1   21.69%    failed      0.00%
+ 131  ORY87156.1       22.50%    passed     67.25%
+ 132  XP_019027114.1   20.70%    passed      9.16%
+ 133  XP_001597366.1   19.80%    passed     38.30%
+ 134  XP_963787.2      20.38%    passed     74.71%
+ 135  XP_011316956.1   20.46%    passed     70.81%
+ 136  XP_001805194.1   20.70%    passed     89.69%
+ 137  SMY20547.1       20.54%    passed     74.89%
+ 138  XP_751606.1      18.90%    passed     11.41%
+ 139  XP_661261.1      20.38%    passed     13.52%
+ 140  CRL23579.1       19.07%    passed     35.38%
+ 141  XP_001243197.1   18.49%    passed     47.25%
+ 142  EEH07176.1       18.90%    passed     66.78%
+ 143  XP_002838419.1   22.75%    failed      2.23%
+ 144  ODQ71950.1       20.21%    passed     37.90%
+ 145  P37202.1         21.77%    passed     92.19%
+ 146  XP_002175127.1   21.69%    passed     98.08%
+ 147  ODV96234.1       21.44%    failed      4.39%
+ 148  XP_028891319.1   21.28%    passed     28.39%
+ 149  XP_461958.2      20.95%    passed     46.22%
+ 150  XP_716298.1      20.70%    passed      8.87%
+ 151  NP_014621.1      20.87%    passed     56.60%
+ 152  XP_451472.1      20.62%    passed     92.85%
+ 153  NP_984830.1      21.77%    failed      1.05%
+ 154  XP_002493284.1   22.42%    passed     54.34%
+ 155  XP_503507.1      20.95%    passed     38.42%
+ 156  ODV92280.1       31.51%    passed     82.73%
+ 157  XP_011390175.1   21.36%    failed      2.48%
+ 158  XP_001732306.1   26.92%    failed      1.88%
+ 159  XP_012049211.1   21.85%    passed     45.79%
+ 160  EGN94814.1       21.60%    passed     52.13%
+ 161  XP_007334414.1   21.77%    passed     92.51%
+ 162  XP_003307080.2   18.99%    passed     95.40%
+ 163  XP_629050.1      23.65%    failed      0.01%
+ 164  XP_003290482.1   24.30%    failed      2.50%
+ 165  XP_020435076.1   26.51%    passed     78.07%
+ 166  XP_004356324.1   50.16%    passed     21.28%
+ 167  NP_501835.2      24.14%    passed     14.48%
+ 168  XP_649075.1      27.41%    failed      0.04%
+ 169  XP_009495003.1   25.78%    failed      0.00%
+ 170  OIR58338.1       29.62%    passed      9.11%
+ 171  XP_013237712.1   23.57%    failed      0.07%
+ 172  NP_597581.1      35.19%    failed      0.00%
+ 173  EEQ82259.1       34.12%    failed      0.00%
+ 174  XP_020429451.1   21.52%    failed      0.03%
+ 175  XP_004367379.1   22.09%    failed      0.38%
+ 176  XP_003293834.1   21.93%    failed      0.00%
+ 177  XP_647622.1      19.56%    failed      0.00%
+ 178  XP_004347849.2   23.00%    failed      0.00%
+ 179  XP_009496108.1   25.61%    failed      0.00%
+ 180  XP_009493865.1   54.34%    failed      0.00%
+ 181  O74454.1         27.50%    failed      0.01%
+ 182  XP_002173060.2   26.76%    failed      0.01%
+ 183  O94525.1         22.42%    failed      0.04%
+ 184  XP_002174298.2   23.32%    failed      3.96%
+ 185  EPR79693.1       34.78%    failed      0.00%
+ 186  NP_612012.1      27.17%    passed     41.64%
+ 187  ORD94946.1       45.66%    failed      0.00%
+ 188  XP_030838165.1   42.14%    passed     10.63%
+ 189  XP_003293188.1   26.35%    failed      0.00%
+ 190  XP_638051.1      22.18%    failed      0.00%
+ 191  XP_020430095.1   30.93%    failed      0.00%
+ 192  XP_004351761.1   32.57%    failed      0.00%
+ 193  EIJ88150.1       66.04%    failed      0.00%
+ 194  XP_002836512.1   49.51%    passed      7.23%
+ 195  ODV90180.1       41.73%    passed     93.75%
+ 196  XP_004363187.1   29.87%    failed      0.00%
+ 197  XP_020438727.1   30.69%    failed      0.00%
+ 198  XP_643697.1      33.63%    failed      0.00%
+ 199  XP_004993265.1   51.23%    failed      0.00%
+ 200  XP_013237162.1   42.31%    failed      0.02%
+ 201  CDH53807.1       47.05%    failed      0.00%
+ 202  EPB89435.1       46.73%    passed     11.60%
+ 203  EXX59302.1       43.45%    failed      0.00%
+ 204  ORY49593.1       47.30%    passed     20.71%
+ 205  XP_016608472.1   43.21%    failed      0.03%
+ 206  XP_021883680.1   40.83%    failed      0.81%
+ 207  OAQ27378.1       40.34%    failed      0.01%
+ 208  KNE62248.1       44.60%    failed      0.00%
+ 209  XP_003888596.1   33.39%    failed      0.09%
+ 210  XP_001791277.1   42.23%    failed      1.11%
+ 211  CRL27467.1       40.02%    failed      3.10%
+ 212  XP_001240654.2   40.10%    failed      0.17%
+ 213  ORY79507.1       47.95%    failed      0.27%
+ 214  ODV95531.1       39.28%    failed      0.00%
+ 215  XP_636708.1      42.55%    failed      0.00%
+ 216  XP_003295008.1   45.34%    failed      0.00%
+ 217  XP_004358150.1   42.72%    passed      5.81%
+ 218  XP_020427727.1   41.73%    failed      0.00%
+ 219  EPZ31805.1       54.66%    failed      0.00%
+ 220  XP_501851.1      41.08%    passed      5.11%
+ 221  XP_452479.1      36.66%    passed      9.36%
+ 222  NP_985995.2      41.16%    failed      0.33%
+ 223  NP_014014.1      37.81%    failed      0.18%
+WARNING: 7 sequences contain more than 50% gaps/ambiguity
+****  TOTAL            27.25%  119 sequences failed composition chi2 test (p-value<5%; df=19)
+
+
+Create initial parsimony tree by phylogenetic likelihood library (PLL)... 0.279 seconds
+NOTE: ModelFinder requires 433 MB RAM!
+ModelFinder will test 22 protein models (sample size: 1222) ...
+ No. Model         -LnL         df  AIC          AICc         BIC
+Measuring multi-threading efficiency up to 24 CPU cores
+Increase to 10 rounds for branch lengths
+18 trees examined
+Threads: 1 / Time: 24.846 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -426426
+Threads: 2 / Time: 14.544 sec / Speedup: 1.708 / Efficiency: 85% / LogL: -426426
+Threads: 3 / Time: 10.801 sec / Speedup: 2.300 / Efficiency: 77% / LogL: -426426
+Threads: 4 / Time: 8.668 sec / Speedup: 2.866 / Efficiency: 72% / LogL: -426426
+Threads: 5 / Time: 7.607 sec / Speedup: 3.266 / Efficiency: 65% / LogL: -426426
+Threads: 6 / Time: 6.789 sec / Speedup: 3.660 / Efficiency: 61% / LogL: -426426
+Threads: 7 / Time: 6.447 sec / Speedup: 3.854 / Efficiency: 55% / LogL: -426426
+Threads: 8 / Time: 6.127 sec / Speedup: 4.055 / Efficiency: 51% / LogL: -426426
+Threads: 9 / Time: 5.904 sec / Speedup: 4.208 / Efficiency: 47% / LogL: -426426
+BEST NUMBER OF THREADS: 7
+
+  1  LG            298888.988   443 598663.976   599169.611   600926.928
+  2  LG+G4         290000.735   444 580889.471   581398.042   583157.531
+  3  LG+R2         292191.117   445 585272.234   585783.755   587545.403
+  4  LG+R3         290537.948   447 581969.896   582487.353   584253.281
+  5  LG+R4         289829.936   449 580557.871   581081.317   582851.473
+  6  LG+R5         289592.512   451 580087.024   580616.509   582390.842
+  7  LG+R6         289512.022   453 579930.044   580465.622   582244.078
+  8  LG+R7         289460.137   455 579830.275   580371.998   582154.526
+  9  LG+R8         289437.408   457 579788.816   580336.738   582123.284
+ 10  LG+R9         289416.727   459 579751.453   580305.627   582096.137
+ 11  LG+R10        289405.774   461 579733.549   580294.028   582088.449
+ 12  LG+F          298539.949   462 598003.899   598567.551   600363.908
+ 13  LG+F+G4       289780.478   463 580486.956   581053.795   582852.073
+ 14  LG+F+R2       291983.060   464 584894.119   585464.159   587264.345
+ 15  LG+F+R3       290333.260   466 581598.520   582175.002   583978.962
+ 16  LG+F+R4       289610.284   468 580156.567   580739.547   582547.226
+ 17  LG+F+R5       289378.757   470 579697.514   580287.048   582098.388
+ 18  LG+F+R6       289299.509   472 579543.017   580139.161   581954.108
+ 19  LG+F+R7       289243.807   474 579435.613   580038.425   581856.921
+ 20  LG+F+R8       289217.936   476 579387.871   579997.407   581819.396
+ 21  LG+F+R9       289197.904   478 579351.809   579968.126   581793.549
+ 22  LG+F+R10      289186.494   480 579332.988   579956.146   581784.946
+Akaike Information Criterion:           LG+F+R10
+Corrected Akaike Information Criterion: LG+F+R10
+Bayesian Information Criterion:         LG+F+R10
+Best-fit model: LG+F+R10 chosen according to BIC
+
+All model information printed to output.model.gz
+CPU time for ModelFinder: 2176.061 seconds (0h:36m:16s)
+Wall-clock time for ModelFinder: 354.954 seconds (0h:5m:54s)
+Generating 1000 samples for ultrafast bootstrap (seed: 401302)...
+
+NOTE: 433 MB RAM (0 GB) is required!
+Measuring multi-threading efficiency up to 24 CPU cores
+Increase to 10 rounds for branch lengths
+3 trees examined
+Threads: 1 / Time: 29.040 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -402529
+Threads: 2 / Time: 15.711 sec / Speedup: 1.848 / Efficiency: 92% / LogL: -402529
+Threads: 3 / Time: 10.861 sec / Speedup: 2.674 / Efficiency: 89% / LogL: -402529
+Threads: 4 / Time: 8.533 sec / Speedup: 3.403 / Efficiency: 85% / LogL: -402529
+Threads: 5 / Time: 6.946 sec / Speedup: 4.181 / Efficiency: 84% / LogL: -402529
+Threads: 6 / Time: 6.006 sec / Speedup: 4.835 / Efficiency: 81% / LogL: -402529
+Threads: 7 / Time: 5.286 sec / Speedup: 5.494 / Efficiency: 78% / LogL: -402529
+Threads: 8 / Time: 4.726 sec / Speedup: 6.145 / Efficiency: 77% / LogL: -402529
+Threads: 9 / Time: 4.343 sec / Speedup: 6.687 / Efficiency: 74% / LogL: -402529
+Threads: 10 / Time: 4.019 sec / Speedup: 7.225 / Efficiency: 72% / LogL: -402529
+Threads: 11 / Time: 3.776 sec / Speedup: 7.690 / Efficiency: 70% / LogL: -402529
+Threads: 12 / Time: 3.580 sec / Speedup: 8.112 / Efficiency: 68% / LogL: -402529
+Threads: 13 / Time: 3.420 sec / Speedup: 8.490 / Efficiency: 65% / LogL: -402529
+Threads: 14 / Time: 3.269 sec / Speedup: 8.883 / Efficiency: 63% / LogL: -402529
+Threads: 15 / Time: 3.194 sec / Speedup: 9.093 / Efficiency: 61% / LogL: -402529
+Threads: 16 / Time: 3.071 sec / Speedup: 9.456 / Efficiency: 59% / LogL: -402529
+Threads: 17 / Time: 2.996 sec / Speedup: 9.693 / Efficiency: 57% / LogL: -402529
+Threads: 18 / Time: 2.901 sec / Speedup: 10.009 / Efficiency: 56% / LogL: -402529
+Threads: 19 / Time: 2.885 sec / Speedup: 10.066 / Efficiency: 53% / LogL: -402529
+Threads: 20 / Time: 2.825 sec / Speedup: 10.279 / Efficiency: 51% / LogL: -402529
+Threads: 21 / Time: 2.719 sec / Speedup: 10.681 / Efficiency: 51% / LogL: -402529
+Threads: 22 / Time: 2.701 sec / Speedup: 10.751 / Efficiency: 49% / LogL: -402529
+BEST NUMBER OF THREADS: 21
+
+Estimate model parameters (epsilon = 0.100)
+1. Initial log-likelihood: -289389.687
+2. Current log-likelihood: -289193.961
+3. Current log-likelihood: -289191.558
+4. Current log-likelihood: -289190.810
+5. Current log-likelihood: -289190.201
+6. Current log-likelihood: -289189.813
+7. Current log-likelihood: -289189.455
+8. Current log-likelihood: -289189.137
+9. Current log-likelihood: -289188.846
+10. Current log-likelihood: -289188.699
+11. Current log-likelihood: -289188.581
+12. Current log-likelihood: -289188.441
+13. Current log-likelihood: -289188.330
+14. Current log-likelihood: -289188.217
+15. Current log-likelihood: -289188.111
+Optimal log-likelihood: -289187.962
+Site proportion and rates:  (0.014,0.049) (0.048,0.153) (0.050,0.287) (0.107,0.413) (0.148,0.589) (0.155,0.801) (0.208,1.073) (0.101,1.422) (0.102,1.786) (0.067,2.583)
+Parameters optimization took 15 rounds (34.787 sec)
+Computing ML distances based on estimated model parameters... 50.669 sec
+WARNING: Some pairwise ML distances are too long (saturated)
+Computing BIONJ tree...
+0.041 seconds
+Log-likelihood of BIONJ tree: -289523.908
+--------------------------------------------------------------------
+|             INITIALIZING CANDIDATE TREE SET                      |
+--------------------------------------------------------------------
+Generating 98 parsimony trees... 25.761 second
+Computing log-likelihood of 98 initial trees ... 26.112 seconds
+Current best score: -289187.962
+
+Do NNI search on 20 best initial trees
+Estimate model parameters (epsilon = 0.100)
+BETTER TREE FOUND at iteration 1: -288978.970
+Estimate model parameters (epsilon = 0.100)
+BETTER TREE FOUND at iteration 2: -288934.068
+Estimate model parameters (epsilon = 0.100)
+BETTER TREE FOUND at iteration 7: -288914.047
+Iteration 10 / LogL: -288948.328 / Time: 0h:4m:37s
+Iteration 20 / LogL: -288934.482 / Time: 0h:5m:5s
+Finish initializing candidate tree set (20)
+Current best tree score: -288914.047 / CPU time: 132.677
+Number of iterations: 20
+--------------------------------------------------------------------
+|               OPTIMIZING CANDIDATE TREE SET                      |
+--------------------------------------------------------------------
+Iteration 30 / LogL: -288916.001 / Time: 0h:5m:38s (0h:15m:0s left)
+Estimate model parameters (epsilon = 0.100)
+BETTER TREE FOUND at iteration 32: -288908.735
+Estimate model parameters (epsilon = 0.100)
+BETTER TREE FOUND at iteration 35: -288905.601
+Iteration 40 / LogL: -288920.522 / Time: 0h:6m:18s (0h:15m:22s left)
+Iteration 50 / LogL: -288920.983 / Time: 0h:6m:48s (0h:11m:48s left)
+Estimate model parameters (epsilon = 0.100)
+BETTER TREE FOUND at iteration 54: -288901.613
+Iteration 60 / LogL: -288913.877 / Time: 0h:7m:25s (0h:11m:50s left)
+Iteration 70 / LogL: -288917.108 / Time: 0h:7m:55s (0h:9m:39s left)
+Estimate model parameters (epsilon = 0.100)
+BETTER TREE FOUND at iteration 72: -288900.845
+Iteration 80 / LogL: -288904.255 / Time: 0h:8m:30s (0h:9m:54s left)
+Iteration 90 / LogL: -288932.878 / Time: 0h:9m:2s (0h:8m:19s left)
+Iteration 100 / LogL: -288908.338 / Time: 0h:9m:34s (0h:6m:57s left)
+Iteration 110 / LogL: -288994.137 / Time: 0h:10m:4s (0h:5m:43s left)
+Iteration 120 / LogL: -288901.697 / Time: 0h:10m:37s (0h:4m:38s left)
+Iteration 130 / LogL: -288903.788 / Time: 0h:11m:8s (0h:3m:37s left)
+Iteration 140 / LogL: -288906.560 / Time: 0h:11m:41s (0h:2m:41s left)
+Iteration 150 / LogL: -288918.599 / Time: 0h:12m:12s (0h:1m:48s left)
+Iteration 160 / LogL: -288903.889 / Time: 0h:12m:44s (0h:0m:57s left)
+Estimate model parameters (epsilon = 0.100)
+UPDATE BEST LOG-LIKELIHOOD: -288899.980
+Iteration 170 / LogL: -288907.017 / Time: 0h:13m:15s (0h:0m:9s left)
+Refining ufboot trees with NNI 1 branch...
+100 samples done
+200 samples done
+300 samples done
+400 samples done
+500 samples done
+600 samples done
+700 samples done
+800 samples done
+900 samples done
+1000 samples done
+Total 1000 ufboot trees refined
+TREE SEARCH COMPLETED AFTER 173 ITERATIONS / Time: 0h:25m:45s
+
+--------------------------------------------------------------------
+|                    FINALIZING TREE SEARCH                        |
+--------------------------------------------------------------------
+Performs final model parameters optimization
+Estimate model parameters (epsilon = 0.010)
+1. Initial log-likelihood: -288899.980
+2. Current log-likelihood: -288899.950
+3. Current log-likelihood: -288899.939
+4. Current log-likelihood: -288899.926
+Optimal log-likelihood: -288899.909
+Site proportion and rates:  (0.014,0.046) (0.044,0.146) (0.050,0.273) (0.110,0.411) (0.148,0.589) (0.159,0.806) (0.224,1.091) (0.086,1.504) (0.082,1.709) (0.084,2.459)
+Parameters optimization took 4 rounds (3.024 sec)
+BEST SCORE FOUND : -288899.909
+WARNING: bootstrap analysis did not converge. You should rerun with higher number of iterations (-nm option)
+Creating bootstrap support values...
+Split supports printed to NEXUS file output.splits.nex
+Total tree length: 161.566
+
+Total number of iterations: 173
+CPU time used for tree search: 27049.040 sec (7h:30m:49s)
+Wall-clock time used for tree search: 1371.792 sec (0h:22m:51s)
+Total CPU time used: 28880.796 sec (8h:1m:20s)
+Total wall-clock time used: 1549.020 sec (0h:25m:49s)
+UFBoot trees printed to output.ufboot
+
+Computing bootstrap consensus tree...
+Reading input file output.splits.nex...
+223 taxa and 1250 splits.
+Consensus tree written to output.contree
+Reading input trees file output.contree
+Log-likelihood of consensus tree: -288899.831
+
+Analysis results written to: 
+  IQ-TREE report:                output.iqtree
+  Maximum-likelihood tree:       output.treefile
+  Likelihood distances:          output.mldist
+
+Ultrafast bootstrap approximation results written to:
+  Split support values:          output.splits.nex
+  Consensus tree:                output.contree
+  UFBoot trees:                  output.ufboot
+  Screen log file:               output.log
+
+Date and Time: Sat May  9 09:12:37 2020
