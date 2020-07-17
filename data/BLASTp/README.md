@@ -39,14 +39,14 @@ Unique full protein sequences from BLASTp hits above, filtered:
 This is a trimmed multiple sequence alignment of sequences in the above file, produced by running the code:
 
 ```
-mafft --retree 2 --reorder "BLASTs_8May2020/Ssd1Dis3L2_BLASTp_76species_filteredbyhand_fullseqs.fasta" > "BLASTs_8May2020/Ssd1Dis3L2_BLASTp_76species_filteredbyhand_fullseqs_mafft.fasta"
+mafft --retree 2 --reorder "data/BLASTp/Ssd1Dis3L2_BLASTp_76species_filteredbyhand_fullseqs.fasta" > "data/BLASTp/Ssd1Dis3L2_BLASTp_76species_filteredbyhand_fullseqs_mafft.fasta"
 
-trimal -gt 0.25 -resoverlap 0.75 -seqoverlap 75 -in "BLASTs_8May2020/Ssd1Dis3L2_BLASTp_76species_filteredbyhand_fullseqs_mafft.fasta" -out "BLASTs_8May2020/Ssd1Dis3L2_BLASTp_76species_filteredbyhand_fullseqs_mafft_trimalstrong.fasta"
+trimal -gt 0.25 -resoverlap 0.75 -seqoverlap 75 -in "data/BLASTp/Ssd1Dis3L2_BLASTp_76species_filteredbyhand_fullseqs_mafft.fasta" -out "data/BLASTp/Ssd1Dis3L2_BLASTp_76species_filteredbyhand_fullseqs_mafft_trimalstrong.fasta"
 ```
 
 Note that the intermediate file,
-`BLASTs_8May2020/Ssd1Dis3L2_BLASTp_76species_filteredbyhand_fullseqs_mafft.fasta`,
-is not included in this repository as it should be able to recreated it as above.
+`Ssd1Dis3L2_BLASTp_76species_filteredbyhand_fullseqs_mafft.fasta`,
+is not included in this repository as it should be recreatable as described above.
 
 Software versions and references are:
 
