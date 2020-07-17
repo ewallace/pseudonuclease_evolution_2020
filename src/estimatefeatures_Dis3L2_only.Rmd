@@ -1,0 +1,207 @@
+---
+title: "Estimate features for Dis3L2 homologs"
+author: "Edward Wallace"
+date: "17/07/2020"
+output: html_document
+---
+
+# Summary
+
+This file calculates information and features of Dis3L2/Ssd1 homologs, from multiple sequence alignments in `data/Dis3L2_only`, files `Dis3L2_BLASTp_select_fullseqs_mafftlocal.fasta`.
+These features include:
+
+* sequence ids
+* species and summary taxonomic information
+* presence of conserved RNaseII active site
+* Cell-wall biogenesis kinase Cbk1 consensus phosphorylation site and docking site
+* Cyclin-dependent kinase Cdk1 consensus phosphorylation site 
+* predicted nuclear localisation sequence
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(here)
+library(tidyverse)
+library(Biostrings)
+```
+
+## Load Dis3L2 sequences
+
+```{r load_seqs}
+Dis3L2_Ntermaln <- 
+    here::here(
+        "data",
+        "Dis3L2_only",
+        "Dis3L2_BLASTp_select_fullseqs_mafftlocal_Nterm1to337.fasta") %>%
+    Biostrings::readAAStringSet()
+
+Dis3L2_Ntermseqs <- Dis3L2_Ntermaln %>%
+    as.character %>%
+    stringr::str_remove_all("-")
+
+Dis3L2_fullaln <-
+    here::here(
+        "data",
+        "Dis3L2_only",
+        "Dis3L2_BLASTp_select_fullseqs_mafftlocal.fasta") %>%
+    Biostrings::readAAStringSet()
+
+Dis3L2_fullseqs <- Dis3L2_fullaln %>% 
+    as.character %>%
+    stringr::str_remove_all("-")
+
+stopifnot(all.equal(names(Dis3L2_Ntermaln),names(Dis3L2_fullaln)))
+
+Dis3L2_trimal_alnseqs <- 
+    here::here(
+        "data",
+        "Dis3L2_only",
+        "Dis3L2_BLASTp_select_fullseqs_mafftlocal_trimal.fasta") %>%
+    Biostrings::readAAStringSet()
+```
+
+## Find Cbk1 phosphorylation sites in N-terminus
+
+Search for `H[RK]xxx[ST]` or `Hx[RK]xx[ST]` motifs of Cbk1 cell wall biogenesis kinase.
+
+```{r find_cbk1_nterm,dependson="load_seqs"}
+cbk1cons_alt <- "H[A-Z]([A-Z][RK]|[RK][A-Z])[A-Z][ST]"
+cbk1dock <- "[YF][A-Z]FP"
+cbk1cons_df <-
+    tibble(ID = names(Dis3L2_Ntermaln) %>% 
+               stringr::str_extract("[\\w.]+"),
+        cbk1cons_count = Dis3L2_Ntermseqs %>% 
+            stringr::str_count(cbk1cons_alt),
+        cbk1dock_count = Dis3L2_Ntermseqs %>% 
+            stringr::str_count(cbk1dock))
+
+cbk1cons_df
+```
+
+## Find Cdk1 phosphorylation sites in N-terminus
+
+Search for `[ST]Px[KR]` motif of Cdk1 cyclin-dependent kinase.
+
+```{r find_cdk1,dependson="load_seqs"}
+cdk1cons <- "[ST]P[A-Z][KR]"
+cdk1consdock <- "[ST][QP][A-Z]{5,20}[KR][A-Z]L"
+cdk1cons_df <-
+    tibble(ID = names(Dis3L2_fullaln) %>% 
+               stringr::str_extract("[\\w.]+"),
+        cdk1cons_count = Dis3L2_fullseqs %>% 
+            stringr::str_count(cdk1cons),
+        cdk1consdock_count = Dis3L2_fullseqs %>% 
+            stringr::str_count(cdk1consdock),
+        cdk1cons_Ntcount = Dis3L2_Ntermseqs %>% 
+            stringr::str_count(cdk1cons),
+        cdk1consdock_Ntcount = Dis3L2_Ntermseqs %>% 
+            stringr::str_count(cdk1consdock))
+cdk1cons_df
+```
+
+## Score for active site
+
+Score presence of the active site `D[A-Z]{7}DD`, within the 20 nts up/down of the visually-inspected S. pombe Dis3L2 active site in the trimmed alignment.
+
+```{r score_activesite,dependson="load_seqs"}
+activesite = "D[A-Z]{7}DD"
+activesite_pos <- 1174
+
+activesite_df <-
+    tibble(ID = names(Dis3L2_trimal_alnseqs) %>% 
+               stringr::str_extract("[\\w.]+"),
+        activesite = as.character(Dis3L2_trimal_alnseqs) %>% 
+            stringr::str_sub(start = activesite_pos-20, end=activesite_pos+20) %>%
+            stringr::str_detect(activesite))
+
+activesite_df
+```
+
+## Search for nuclear localisation sites 
+
+Generic monopartite/bipartite nuclear localisation sites from Kosugi et al., doi: 10.1074/jbc.M807017200
+
+Ssd1-specific nuclear localisation sites developed here by inspection of multiple sequence alignment, following Kurischko et al, doi: 10.1111/j.1365-2958.2011.07731.x.
+
+Searching in trimmed alignment
+
+```{r search_NLS,dependson="load_seqs"}
+NLS_regex_bipartite <- "[KR]{2}[A-Z]{9,12}[KR]{3,5}"
+NLS_regex_monopartite <- "[KR]{4,6}"
+NLS_regex_Ssd1like <- "([KRE]{2,4}[ADHILMNVSPQ]{0,3}){2,5}"
+NLS_pos_Ssd1like <- 894
+
+NLS_df <-
+    tibble(ID = names(Dis3L2_trimal_alnseqs) %>% 
+               stringr::str_extract("[\\w.]+"),
+        NLS_bi_count = as.character(Dis3L2_trimal_alnseqs) %>% 
+            stringr::str_remove_all("-") %>%
+            stringr::str_count(NLS_regex_bipartite),
+        NLS_mono_count = as.character(Dis3L2_trimal_alnseqs) %>% 
+            stringr::str_remove_all("-") %>%
+            stringr::str_count(NLS_regex_monopartite),
+        NLS_Ssd1like = as.character(Dis3L2_trimal_alnseqs) %>% 
+            stringr::str_sub(start = NLS_pos_Ssd1like-20, end=NLS_pos_Ssd1like+20) %>%
+            stringr::str_remove_all("-") %>%
+            stringr::str_detect(NLS_regex_Ssd1like))
+NLS_df
+```
+
+## Collect into features data frame
+
+```{r ids_dataframe,dependson="load_seqs"}
+Dis3L2_IDs_df <- 
+    tibble(ID = names(Dis3L2_fullaln) %>% 
+               stringr::str_extract("[\\w.]+"),
+           Organism = names(Dis3L2_fullaln) %>% 
+               stringr::str_extract("\\[.*\\]") %>%
+               stringr::str_extract("\\w+ \\w+"),
+           Info = names(Dis3L2_fullaln) )
+```
+
+## Nicely describe taxonomic info
+
+```{r add_taxon_info}
+add_extensions <- function(x) {
+    if( all(is.na(x)) & length(x) > 1) {
+        x <- as.character(1:length(x))
+    }
+    return(x)
+}
+
+Dis3L2_clade_df <- 
+    here::here(
+        "data",
+        "Dis3L2_only",
+        "Dis3L2_BLASTp_select_taxa.txt") %>%
+    read_tsv(comment="#") %>%
+    select(ID,Organism,Clade,Extension) %>%
+    group_by(Organism) %>%
+    mutate(Extension = add_extensions(Extension))
+```
+
+## Combine information into a single table and write to a file.
+
+```{r combine_data,dependson=c("ids_dataframe","add_taxon_info","score_activesite","find_cbk1_nterm","search_NLS")}
+Dis3L2_features_file <- here::here("data",
+                                   "Dis3L2_only",
+                                   "Dis3L2_BLASTp_select_features.txt")
+
+Dis3L2_features_df <- Dis3L2_IDs_df %>%
+    left_join(Dis3L2_clade_df) %>%
+    left_join(activesite_df) %>%
+    left_join(cbk1cons_df) %>%
+    left_join(cdk1cons_df) %>%
+    left_join(NLS_df)
+
+write_lines(c("# Dis3L2_BLASTp_select_features.txt",
+            "# Information and features of Dis3L2/Ssd1 homologs ",
+            "# calculated from Dis3L2_BLASTp_select_fullseqs_mafftlocal.fasta, etc.",
+            "# taxonomic info, active site, cbk1 consensus phosphorylation site, cdk1 sites, nuclear localisation sequence",
+            "# see estimate_features_Dis3L2_only.Rmd for full descriptions and code",
+            "# Edward.Wallace@ed.ac.uk, 17 July 2020",
+            "# "),
+            path=Dis3L2_features_file)
+write_tsv(Dis3L2_features_df, path=Dis3L2_features_file, 
+          col_names = TRUE, append=TRUE)
+```

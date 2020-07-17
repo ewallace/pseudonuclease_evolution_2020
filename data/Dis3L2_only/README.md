@@ -32,3 +32,10 @@ These was created from `Dis3L2_BLASTp_select_fullseqs_mafftlocal_trimal.fasta` b
 The `..._deltaNterm1to337.fasta` file is used as input to IQ-TREE alignment calculation.
 
 The `..._Nterm1to337.fasta` files is used for some feature calculations.
+
+## Dis3L2_BLASTp_select_taxa.txt
+
+Table with taxonomic information separated out from fasta headers.
+
+## Dis3L2_BLASTp_select_features.txt
+
