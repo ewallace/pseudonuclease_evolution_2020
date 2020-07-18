@@ -1,4 +1,4 @@
-# pseudonuclease_evolution_2020/data/IQ--TREE_Dis3L2_only/
+# pseudonuclease_evolution_2020/data/IQ-TREE_Dis3L2_only/
 
 Data files from phylogenetic analysis of BLASTp results for Dis3L2-specific homologs in select eukaryotes.
 
