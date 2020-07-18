@@ -7,8 +7,15 @@ This repository forms the supplementary data and analysis for the manuscript:
 *Repeated evolution of inactive pseudonucleases in a fungal branch of the Dis3/RNase II family of nucleases*; 
 E.R. Ballou, A.G. Cook, E.W.J. Wallace. 2020.
 
-
 Every directory has a README.md that describes the contents in more detail.
+
+# License
+
+Original code and data analysis in the repository is covered by an Apache 2.0 licence, see LICENCE.
+
+Data copied from other sources are covered by more permissive licences.
+For example, sequence data and ids, taxonomic info, and BLAST results from the US National Library of Medicine.
+Webpage results (e.g. BLAST) are public-domain, see https://www.ncbi.nlm.nih.gov/home/about/policies/#copyright for more details. 
 
 ## data
 
