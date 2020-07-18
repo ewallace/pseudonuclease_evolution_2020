@@ -8,7 +8,7 @@ This data follows on from the sequences in `data/Dis3_families/Dis3L2_BLASTp_sel
 This is a trimmed multiple sequence alignment of sequences in the above file, produced by running the code:
 
 ```
-mafft --retree 2 --reorder "data/Dis3_families/Dis3L2_BLASTp_select_fullseqs.fasta" > "data/Dis3L2_only/Dis3L2_BLASTp_select_fullseqs_mafftlocal.fasta"
+mafft --thread 4 --localpair --maxiterate 1000 --retree 2 --reorder  "data/Dis3_families/Dis3L2_BLASTp_select_fullseqs.fasta" > "data/Dis3L2_only/Dis3L2_BLASTp_select_fullseqs_mafftlocal.fasta"
 
 trimal -gt 0.25 -resoverlap 0.75 -seqoverlap 75 -in "data/Dis3L2_only/Dis3L2_BLASTp_select_fullseqs_mafftlocal.fasta" -out "data/Dis3L2_only/Dis3L2_BLASTp_select_fullseqs_mafftlocal_trimal.fasta"
 ```
