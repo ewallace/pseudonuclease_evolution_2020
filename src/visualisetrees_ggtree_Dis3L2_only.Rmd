@@ -13,7 +13,7 @@ This document is to analyse phylogenetic trees produced for Ssd1/Dis3L2 homologs
 
 Full raw sequences are in: `data/Dis3_families/Dis3L2_BLASTp_select_fullseqs.fasta`. 
 
-File `data/Dis3L2_only/Dis3L2_BLASTp_select_fullseqs_mafftlocal_trimal_deltaNterm1to337.fasta` has the mafft-default-aligned, reordered, trimmed sequences. We ran IQ-TREE on those files on the CIPRES server. This file analyses phylogenetic data from IQ-TREE results.
+File `data/Dis3L2_only/Dis3L2_BLASTp_select_fullseqs_mafftlocal_trimal_deltaNterm1to337.fasta` has the mafft-default-aligned, reordered, trimmed sequences. We ran IQ-TREE and RaxML on those files on the CIPRES server. This file analyses phylogenetic data from IQ-TREE results.
 
 * Phylogenetic trees with bootstrap and clade information (figure 2B)
 * Matched heatmaps of protein feature information (figure 2C)
@@ -304,4 +304,12 @@ percent_identity_cladogram
 ggsave(filename = here::here("figure","figure3_percent_identity_cladogram.svg"), 
        plot = percent_identity_cladogram,
        width = 8, height = 4)
+```
+
+# Session Info
+
+Package versions, etc., that ran this file.
+
+```{r session_info,results="show",message=TRUE}
+sessionInfo()
 ```
