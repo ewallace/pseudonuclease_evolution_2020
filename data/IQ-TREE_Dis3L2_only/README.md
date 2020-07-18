@@ -19,4 +19,4 @@ Results and most logfiles are included. We included the tree files and bootstrap
 * output.mldist
 * output.model.gz
 * output.splits.nex
-* output.treefile - maximum likelihood tree including bootstrap values
+* output.treefile - maximum likelihood tree including bootstrap values.

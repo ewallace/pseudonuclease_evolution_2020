@@ -1,7 +1,7 @@
 ---
 title: "Trees for Ssd1 and Dis3-like eukaryotic proteins"
 author: "Edward Wallace"
-date: "13/07/2020"
+date: "17/07/2020"
 output: 
   html_document:
       toc: true
@@ -9,11 +9,11 @@ output:
 
 # Summary
 
-This document is to analyse phylogenetic trees produced for Dis3/Dis3L1/Dss1/Ssd1/Dis3L2 homologues from the curated BLASTp list.
+This document is to analyse phylogenetic trees produced for Dis3/Dis3L1/Dss1/Ssd1/Dis3L2 homologs from the curated BLASTp list.
 
-Full raw sequences are in: *data/BLASTp/BLASTpSsd1Dis3L2_BLASTp_76species_filteredbyhand_fullseqs.fasta*.
+Full raw sequences are in: `data/BLASTp/BLASTpSsd1Dis3L2_BLASTp_76species_filteredbyhand_fullseqs.fasta`.
 
-File *data/BLASTp/Ssd1Dis3L2_BLASTp_76species_filteredbyhand_fullseqs_mafft_trimalstrong.fasta* has the mafft-default-aligned, reordered, trimmed sequences. We ran IQ-TREE and RaxML on those alignments. This document analyses the IQ-TREE results, and produces figure 1 of the manuscript.
+File `data/BLASTp/Ssd1Dis3L2_BLASTp_76species_filteredbyhand_fullseqs_mafft_trimalstrong.fasta` has the mafft-default-aligned, reordered, trimmed sequences. We ran IQ-TREE and RaxML on those alignments. This document analyses the IQ-TREE results, and produces figure 1 of the manuscript.
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)

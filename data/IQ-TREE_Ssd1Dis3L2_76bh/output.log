@@ -1,12 +1,12 @@
-IQ-TREE multicore version 1.6.10 for Linux 64-bit built Feb 19 2019
+IQ-TREE multicore version 2.0.6 for Linux 64-bit built May 30 2020
 Developed by Bui Quang Minh, Nguyen Lam Tung, Olga Chernomor,
 Heiko Schmidt, Dominik Schrempf, Michael Woodhams.
 
-Host:    comet-08-46.sdsc.edu (AVX2, FMA3, 125 GB RAM)
-Command: iqtree -s infile.txt -bb 1000 -bnni -wbt -st AA -wbtl -mset LG -nt AUTO -pre output
-Seed:    401302 (Using SPRNG - Scalable Parallel Random Number Generator)
-Time:    Sat May  9 08:40:48 2020
-Kernel:  AVX+FMA - auto-detect threads (24 CPU cores detected)
+Host:    comet-15-39.sdsc.edu (AVX2, FMA3, 125 GB RAM)
+Command: iqtree2 -nt 24 -bb 10000 -bnni -wbt -st AA -nm 10000 -wbtl -s infile.txt -mset LG --prefix output
+Seed:    161085 (Using SPRNG - Scalable Parallel Random Number Generator)
+Time:    Fri Jul 17 13:41:49 2020
+Kernel:  AVX+FMA - 24 threads (24 CPU cores detected)
 
 Reading alignment file infile.txt ... Fasta format detected
 Alignment most likely contains protein sequences
@@ -240,155 +240,95 @@ WARNING: 7 sequences contain more than 50% gaps/ambiguity
 ****  TOTAL            27.25%  119 sequences failed composition chi2 test (p-value<5%; df=19)
 
 
-Create initial parsimony tree by phylogenetic likelihood library (PLL)... 0.279 seconds
-NOTE: ModelFinder requires 433 MB RAM!
-ModelFinder will test 22 protein models (sample size: 1222) ...
- No. Model         -LnL         df  AIC          AICc         BIC
-Measuring multi-threading efficiency up to 24 CPU cores
-Increase to 10 rounds for branch lengths
-18 trees examined
-Threads: 1 / Time: 24.846 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -426426
-Threads: 2 / Time: 14.544 sec / Speedup: 1.708 / Efficiency: 85% / LogL: -426426
-Threads: 3 / Time: 10.801 sec / Speedup: 2.300 / Efficiency: 77% / LogL: -426426
-Threads: 4 / Time: 8.668 sec / Speedup: 2.866 / Efficiency: 72% / LogL: -426426
-Threads: 5 / Time: 7.607 sec / Speedup: 3.266 / Efficiency: 65% / LogL: -426426
-Threads: 6 / Time: 6.789 sec / Speedup: 3.660 / Efficiency: 61% / LogL: -426426
-Threads: 7 / Time: 6.447 sec / Speedup: 3.854 / Efficiency: 55% / LogL: -426426
-Threads: 8 / Time: 6.127 sec / Speedup: 4.055 / Efficiency: 51% / LogL: -426426
-Threads: 9 / Time: 5.904 sec / Speedup: 4.208 / Efficiency: 47% / LogL: -426426
-BEST NUMBER OF THREADS: 7
+Create initial parsimony tree by phylogenetic likelihood library (PLL)... 0.219 seconds
+Perform fast likelihood tree search using LG+G model...
+Estimate model parameters (epsilon = 5.000)
+Perform nearest neighbor interchange...
+Estimate model parameters (epsilon = 1.000)
+1. Initial log-likelihood: -289787.157
+Optimal log-likelihood: -289786.868
+Gamma shape alpha: 1.452
+Parameters optimization took 1 rounds (0.138 sec)
+Time for fast ML tree search: 1.981 seconds
 
-  1  LG            298888.988   443 598663.976   599169.611   600926.928
-  2  LG+G4         290000.735   444 580889.471   581398.042   583157.531
-  3  LG+R2         292191.117   445 585272.234   585783.755   587545.403
-  4  LG+R3         290537.948   447 581969.896   582487.353   584253.281
-  5  LG+R4         289829.936   449 580557.871   581081.317   582851.473
-  6  LG+R5         289592.512   451 580087.024   580616.509   582390.842
-  7  LG+R6         289512.022   453 579930.044   580465.622   582244.078
-  8  LG+R7         289460.137   455 579830.275   580371.998   582154.526
-  9  LG+R8         289437.408   457 579788.816   580336.738   582123.284
- 10  LG+R9         289416.727   459 579751.453   580305.627   582096.137
- 11  LG+R10        289405.774   461 579733.549   580294.028   582088.449
- 12  LG+F          298539.949   462 598003.899   598567.551   600363.908
- 13  LG+F+G4       289780.478   463 580486.956   581053.795   582852.073
- 14  LG+F+R2       291983.060   464 584894.119   585464.159   587264.345
- 15  LG+F+R3       290333.260   466 581598.520   582175.002   583978.962
- 16  LG+F+R4       289610.284   468 580156.567   580739.547   582547.226
- 17  LG+F+R5       289378.757   470 579697.514   580287.048   582098.388
- 18  LG+F+R6       289299.509   472 579543.017   580139.161   581954.108
- 19  LG+F+R7       289243.807   474 579435.613   580038.425   581856.921
- 20  LG+F+R8       289217.936   476 579387.871   579997.407   581819.396
- 21  LG+F+R9       289197.904   478 579351.809   579968.126   581793.549
- 22  LG+F+R10      289186.494   480 579332.988   579956.146   581784.946
+NOTE: ModelFinder requires 476 MB RAM!
+ModelFinder will test up to 22 protein models (sample size: 1222) ...
+ No. Model         -LnL         df  AIC          AICc         BIC
+  1  LG            298672.684   443 598231.368   598737.003   600494.320
+  2  LG+G4         289786.881   444 580461.761   580970.333   582729.822
+  3  LG+R2         291979.504   445 584849.009   585360.529   587122.177
+  4  LG+R3         290326.014   447 581546.028   582063.485   583829.413
+  5  LG+R4         289620.365   449 580138.730   580662.176   582432.332
+  6  LG+R5         289387.522   451 579677.044   580206.530   581980.862
+  7  LG+R6         289306.935   453 579519.869   580055.448   581833.904
+  8  LG+R7         289250.689   455 579411.379   579953.102   581735.630
+  9  LG+R8         289219.805   457 579353.609   579901.531   581688.077
+ 10  LG+R9         289197.114   459 579312.228   579866.401   581656.912
+ 11  LG+R10        289191.703   461 579305.406   579865.885   581660.306
+ 21  LG+F+R9       288983.104   478 578922.208   579538.526   581363.949
+ 22  LG+F+R10      288977.495   480 578914.991   579538.149   581366.948
 Akaike Information Criterion:           LG+F+R10
 Corrected Akaike Information Criterion: LG+F+R10
-Bayesian Information Criterion:         LG+F+R10
-Best-fit model: LG+F+R10 chosen according to BIC
+Bayesian Information Criterion:         LG+F+R9
+Best-fit model: LG+F+R9 chosen according to BIC
 
 All model information printed to output.model.gz
-CPU time for ModelFinder: 2176.061 seconds (0h:36m:16s)
-Wall-clock time for ModelFinder: 354.954 seconds (0h:5m:54s)
-Generating 1000 samples for ultrafast bootstrap (seed: 401302)...
+CPU time for ModelFinder: 4571.659 seconds (1h:16m:11s)
+Wall-clock time for ModelFinder: 195.816 seconds (0h:3m:15s)
+Generating 10000 samples for ultrafast bootstrap (seed: 161085)...
 
 NOTE: 433 MB RAM (0 GB) is required!
-Measuring multi-threading efficiency up to 24 CPU cores
-Increase to 10 rounds for branch lengths
-3 trees examined
-Threads: 1 / Time: 29.040 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -402529
-Threads: 2 / Time: 15.711 sec / Speedup: 1.848 / Efficiency: 92% / LogL: -402529
-Threads: 3 / Time: 10.861 sec / Speedup: 2.674 / Efficiency: 89% / LogL: -402529
-Threads: 4 / Time: 8.533 sec / Speedup: 3.403 / Efficiency: 85% / LogL: -402529
-Threads: 5 / Time: 6.946 sec / Speedup: 4.181 / Efficiency: 84% / LogL: -402529
-Threads: 6 / Time: 6.006 sec / Speedup: 4.835 / Efficiency: 81% / LogL: -402529
-Threads: 7 / Time: 5.286 sec / Speedup: 5.494 / Efficiency: 78% / LogL: -402529
-Threads: 8 / Time: 4.726 sec / Speedup: 6.145 / Efficiency: 77% / LogL: -402529
-Threads: 9 / Time: 4.343 sec / Speedup: 6.687 / Efficiency: 74% / LogL: -402529
-Threads: 10 / Time: 4.019 sec / Speedup: 7.225 / Efficiency: 72% / LogL: -402529
-Threads: 11 / Time: 3.776 sec / Speedup: 7.690 / Efficiency: 70% / LogL: -402529
-Threads: 12 / Time: 3.580 sec / Speedup: 8.112 / Efficiency: 68% / LogL: -402529
-Threads: 13 / Time: 3.420 sec / Speedup: 8.490 / Efficiency: 65% / LogL: -402529
-Threads: 14 / Time: 3.269 sec / Speedup: 8.883 / Efficiency: 63% / LogL: -402529
-Threads: 15 / Time: 3.194 sec / Speedup: 9.093 / Efficiency: 61% / LogL: -402529
-Threads: 16 / Time: 3.071 sec / Speedup: 9.456 / Efficiency: 59% / LogL: -402529
-Threads: 17 / Time: 2.996 sec / Speedup: 9.693 / Efficiency: 57% / LogL: -402529
-Threads: 18 / Time: 2.901 sec / Speedup: 10.009 / Efficiency: 56% / LogL: -402529
-Threads: 19 / Time: 2.885 sec / Speedup: 10.066 / Efficiency: 53% / LogL: -402529
-Threads: 20 / Time: 2.825 sec / Speedup: 10.279 / Efficiency: 51% / LogL: -402529
-Threads: 21 / Time: 2.719 sec / Speedup: 10.681 / Efficiency: 51% / LogL: -402529
-Threads: 22 / Time: 2.701 sec / Speedup: 10.751 / Efficiency: 49% / LogL: -402529
-BEST NUMBER OF THREADS: 21
-
 Estimate model parameters (epsilon = 0.100)
-1. Initial log-likelihood: -289389.687
-2. Current log-likelihood: -289193.961
-3. Current log-likelihood: -289191.558
-4. Current log-likelihood: -289190.810
-5. Current log-likelihood: -289190.201
-6. Current log-likelihood: -289189.813
-7. Current log-likelihood: -289189.455
-8. Current log-likelihood: -289189.137
-9. Current log-likelihood: -289188.846
-10. Current log-likelihood: -289188.699
-11. Current log-likelihood: -289188.581
-12. Current log-likelihood: -289188.441
-13. Current log-likelihood: -289188.330
-14. Current log-likelihood: -289188.217
-15. Current log-likelihood: -289188.111
-Optimal log-likelihood: -289187.962
-Site proportion and rates:  (0.014,0.049) (0.048,0.153) (0.050,0.287) (0.107,0.413) (0.148,0.589) (0.155,0.801) (0.208,1.073) (0.101,1.422) (0.102,1.786) (0.067,2.583)
-Parameters optimization took 15 rounds (34.787 sec)
-Computing ML distances based on estimated model parameters... 50.669 sec
-WARNING: Some pairwise ML distances are too long (saturated)
+1. Initial log-likelihood: -288983.104
+2. Current log-likelihood: -288983.002
+Optimal log-likelihood: -288982.878
+Site proportion and rates:  (0.014,0.047) (0.038,0.142) (0.032,0.232) (0.097,0.363) (0.151,0.541) (0.184,0.772) (0.238,1.091) (0.155,1.604) (0.089,2.442)
+Parameters optimization took 2 rounds (2.721 sec)
+Computing ML distances based on estimated model parameters... 18.856 sec
 Computing BIONJ tree...
-0.041 seconds
-Log-likelihood of BIONJ tree: -289523.908
+0.049 seconds
+Log-likelihood of BIONJ tree: -289251.870
 --------------------------------------------------------------------
 |             INITIALIZING CANDIDATE TREE SET                      |
 --------------------------------------------------------------------
-Generating 98 parsimony trees... 25.761 second
-Computing log-likelihood of 98 initial trees ... 26.112 seconds
-Current best score: -289187.962
+Generating 98 parsimony trees... 26.649 second
+Computing log-likelihood of 98 initial trees ... 12.384 seconds
+Current best score: -288982.878
 
 Do NNI search on 20 best initial trees
 Estimate model parameters (epsilon = 0.100)
-BETTER TREE FOUND at iteration 1: -288978.970
+BETTER TREE FOUND at iteration 1: -288973.326
 Estimate model parameters (epsilon = 0.100)
-BETTER TREE FOUND at iteration 2: -288934.068
+BETTER TREE FOUND at iteration 3: -288927.530
 Estimate model parameters (epsilon = 0.100)
-BETTER TREE FOUND at iteration 7: -288914.047
-Iteration 10 / LogL: -288948.328 / Time: 0h:4m:37s
-Iteration 20 / LogL: -288934.482 / Time: 0h:5m:5s
+BETTER TREE FOUND at iteration 4: -288909.122
+Estimate model parameters (epsilon = 0.100)
+BETTER TREE FOUND at iteration 6: -288906.738
+Estimate model parameters (epsilon = 0.100)
+BETTER TREE FOUND at iteration 9: -288904.599
+Iteration 10 / LogL: -288925.075 / Time: 0h:1m:49s
+Iteration 20 / LogL: -288953.090 / Time: 0h:2m:38s
 Finish initializing candidate tree set (20)
-Current best tree score: -288914.047 / CPU time: 132.677
+Current best tree score: -288904.599 / CPU time: 154.213
 Number of iterations: 20
 --------------------------------------------------------------------
 |               OPTIMIZING CANDIDATE TREE SET                      |
 --------------------------------------------------------------------
-Iteration 30 / LogL: -288916.001 / Time: 0h:5m:38s (0h:15m:0s left)
 Estimate model parameters (epsilon = 0.100)
-BETTER TREE FOUND at iteration 32: -288908.735
+BETTER TREE FOUND at iteration 25: -288902.695
+Iteration 30 / LogL: -288906.751 / Time: 0h:3m:11s (0h:10m:28s left)
 Estimate model parameters (epsilon = 0.100)
-BETTER TREE FOUND at iteration 35: -288905.601
-Iteration 40 / LogL: -288920.522 / Time: 0h:6m:18s (0h:15m:22s left)
-Iteration 50 / LogL: -288920.983 / Time: 0h:6m:48s (0h:11m:48s left)
-Estimate model parameters (epsilon = 0.100)
-BETTER TREE FOUND at iteration 54: -288901.613
-Iteration 60 / LogL: -288913.877 / Time: 0h:7m:25s (0h:11m:50s left)
-Iteration 70 / LogL: -288917.108 / Time: 0h:7m:55s (0h:9m:39s left)
-Estimate model parameters (epsilon = 0.100)
-BETTER TREE FOUND at iteration 72: -288900.845
-Iteration 80 / LogL: -288904.255 / Time: 0h:8m:30s (0h:9m:54s left)
-Iteration 90 / LogL: -288932.878 / Time: 0h:9m:2s (0h:8m:19s left)
-Iteration 100 / LogL: -288908.338 / Time: 0h:9m:34s (0h:6m:57s left)
-Iteration 110 / LogL: -288994.137 / Time: 0h:10m:4s (0h:5m:43s left)
-Iteration 120 / LogL: -288901.697 / Time: 0h:10m:37s (0h:4m:38s left)
-Iteration 130 / LogL: -288903.788 / Time: 0h:11m:8s (0h:3m:37s left)
-Iteration 140 / LogL: -288906.560 / Time: 0h:11m:41s (0h:2m:41s left)
-Iteration 150 / LogL: -288918.599 / Time: 0h:12m:12s (0h:1m:48s left)
-Iteration 160 / LogL: -288903.889 / Time: 0h:12m:44s (0h:0m:57s left)
-Estimate model parameters (epsilon = 0.100)
-UPDATE BEST LOG-LIKELIHOOD: -288899.980
-Iteration 170 / LogL: -288907.017 / Time: 0h:13m:15s (0h:0m:9s left)
+BETTER TREE FOUND at iteration 35: -288899.163
+Iteration 40 / LogL: -288911.222 / Time: 0h:3m:45s (0h:9m:8s left)
+Iteration 50 / LogL: -288905.961 / Time: 0h:4m:13s (0h:7m:19s left)
+Iteration 60 / LogL: -288906.049 / Time: 0h:4m:42s (0h:5m:59s left)
+Iteration 70 / LogL: -288901.810 / Time: 0h:5m:12s (0h:4m:54s left)
+Iteration 80 / LogL: -288903.874 / Time: 0h:5m:42s (0h:3m:58s left)
+Iteration 90 / LogL: -288905.894 / Time: 0h:6m:14s (0h:3m:9s left)
+Iteration 100 / LogL: -288908.346 / Time: 0h:6m:42s (0h:2m:22s left)
+Iteration 110 / LogL: -288923.079 / Time: 0h:7m:13s (0h:1m:39s left)
+Iteration 120 / LogL: -288912.052 / Time: 0h:7m:44s (0h:0m:58s left)
+Iteration 130 / LogL: -288911.602 / Time: 0h:8m:14s (0h:0m:19s left)
 Refining ufboot trees with NNI 1 branch...
 100 samples done
 200 samples done
@@ -400,40 +340,128 @@ Refining ufboot trees with NNI 1 branch...
 800 samples done
 900 samples done
 1000 samples done
-Total 1000 ufboot trees refined
-TREE SEARCH COMPLETED AFTER 173 ITERATIONS / Time: 0h:25m:45s
+1100 samples done
+1200 samples done
+1300 samples done
+1400 samples done
+1500 samples done
+1600 samples done
+1700 samples done
+1800 samples done
+1900 samples done
+2000 samples done
+2100 samples done
+2200 samples done
+2300 samples done
+2400 samples done
+2500 samples done
+2600 samples done
+2700 samples done
+2800 samples done
+2900 samples done
+3000 samples done
+3100 samples done
+3200 samples done
+3300 samples done
+3400 samples done
+3500 samples done
+3600 samples done
+3700 samples done
+3800 samples done
+3900 samples done
+4000 samples done
+4100 samples done
+4200 samples done
+4300 samples done
+4400 samples done
+4500 samples done
+4600 samples done
+4700 samples done
+4800 samples done
+4900 samples done
+5000 samples done
+5100 samples done
+5200 samples done
+5300 samples done
+5400 samples done
+5500 samples done
+5600 samples done
+5700 samples done
+5800 samples done
+5900 samples done
+6000 samples done
+6100 samples done
+6200 samples done
+6300 samples done
+6400 samples done
+6500 samples done
+6600 samples done
+6700 samples done
+6800 samples done
+6900 samples done
+7000 samples done
+7100 samples done
+7200 samples done
+7300 samples done
+7400 samples done
+7500 samples done
+7600 samples done
+7700 samples done
+7800 samples done
+7900 samples done
+8000 samples done
+8100 samples done
+8200 samples done
+8300 samples done
+8400 samples done
+8500 samples done
+8600 samples done
+8700 samples done
+8800 samples done
+8900 samples done
+9000 samples done
+9100 samples done
+9200 samples done
+9300 samples done
+9400 samples done
+9500 samples done
+9600 samples done
+9700 samples done
+9800 samples done
+9900 samples done
+10000 samples done
+Total 10000 ufboot trees refined
+TREE SEARCH COMPLETED AFTER 136 ITERATIONS / Time: 2h:29m:48s
 
 --------------------------------------------------------------------
 |                    FINALIZING TREE SEARCH                        |
 --------------------------------------------------------------------
 Performs final model parameters optimization
 Estimate model parameters (epsilon = 0.010)
-1. Initial log-likelihood: -288899.980
-2. Current log-likelihood: -288899.950
-3. Current log-likelihood: -288899.939
-4. Current log-likelihood: -288899.926
-Optimal log-likelihood: -288899.909
-Site proportion and rates:  (0.014,0.046) (0.044,0.146) (0.050,0.273) (0.110,0.411) (0.148,0.589) (0.159,0.806) (0.224,1.091) (0.086,1.504) (0.082,1.709) (0.084,2.459)
-Parameters optimization took 4 rounds (3.024 sec)
-BEST SCORE FOUND : -288899.909
-WARNING: bootstrap analysis did not converge. You should rerun with higher number of iterations (-nm option)
+1. Initial log-likelihood: -288899.163
+2. Current log-likelihood: -288899.109
+3. Current log-likelihood: -288899.084
+Optimal log-likelihood: -288899.071
+Site proportion and rates:  (0.014,0.044) (0.035,0.134) (0.033,0.221) (0.100,0.362) (0.154,0.543) (0.176,0.770) (0.241,1.084) (0.158,1.597) (0.089,2.443)
+Parameters optimization took 3 rounds (1.912 sec)
+BEST SCORE FOUND : -288899.071
 Creating bootstrap support values...
 Split supports printed to NEXUS file output.splits.nex
-Total tree length: 161.566
+Total tree length: 161.505
 
-Total number of iterations: 173
-CPU time used for tree search: 27049.040 sec (7h:30m:49s)
-Wall-clock time used for tree search: 1371.792 sec (0h:22m:51s)
-Total CPU time used: 28880.796 sec (8h:1m:20s)
-Total wall-clock time used: 1549.020 sec (0h:25m:49s)
+Total number of iterations: 136
+CPU time used for tree search: 199727.284 sec (55h:28m:47s)
+Wall-clock time used for tree search: 8983.252 sec (2h:29m:43s)
+Total CPU time used: 199915.997 sec (55h:31m:55s)
+Total wall-clock time used: 8998.895 sec (2h:29m:58s)
 UFBoot trees printed to output.ufboot
 
 Computing bootstrap consensus tree...
 Reading input file output.splits.nex...
-223 taxa and 1250 splits.
+223 taxa and 1836 splits.
 Consensus tree written to output.contree
 Reading input trees file output.contree
-Log-likelihood of consensus tree: -288899.831
+Log-likelihood of consensus tree: -288900.013
 
 Analysis results written to: 
   IQ-TREE report:                output.iqtree
@@ -446,4 +474,4 @@ Ultrafast bootstrap approximation results written to:
   UFBoot trees:                  output.ufboot
   Screen log file:               output.log
 
-Date and Time: Sat May  9 09:12:37 2020
+Date and Time: Fri Jul 17 16:15:15 2020
