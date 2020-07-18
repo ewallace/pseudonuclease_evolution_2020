@@ -1,0 +1,14 @@
+Task\ label=IQ-TREE Dis3L2select_12May2020_moreboot
+Task\ ID=2246787
+Tool=IQTREE_XSEDE
+created\ on=2020-07-17 09:09:29.0
+JobHandle=NGBW-JOB-IQTREE_XSEDE-90C98F3FB6C84A0C9721CBC1B6DC03FA
+RunNumber=1
+resource=comet
+User\ ID=126101
+User\ Name=ewjwallace
+email=edward.wallace@ed.ac.uk
+Output=(results,*,UNKNOWN,UNKNOWN,UNKNOWN)
+ChargeFactor=1.000000
+cores=24
+JOBID=34726543

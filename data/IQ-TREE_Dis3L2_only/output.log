@@ -1,0 +1,367 @@
+IQ-TREE multicore version 2.0.6 for Linux 64-bit built May 30 2020
+Developed by Bui Quang Minh, Nguyen Lam Tung, Olga Chernomor,
+Heiko Schmidt, Dominik Schrempf, Michael Woodhams.
+
+Host:    comet-06-44.sdsc.edu (AVX2, FMA3, 125 GB RAM)
+Command: iqtree2 -nt 24 -bb 10000 -bnni -asr -wbt -wt -st AA -nm 10000 -wbtl -s infile.txt -mset LG --prefix output
+Seed:    383009 (Using SPRNG - Scalable Parallel Random Number Generator)
+Time:    Fri Jul 17 09:18:58 2020
+Kernel:  AVX+FMA - 24 threads (24 CPU cores detected)
+
+Reading alignment file infile.txt ... Fasta format detected
+Alignment most likely contains protein sequences
+Alignment has 99 sequences with 1071 columns, 1071 distinct patterns
+1041 parsimony-informative, 22 singleton sites, 8 constant sites
+                Gap/Ambiguity  Composition  p-value
+   1  NP_010579.1      18.21%    passed     68.91%
+   2  XP_446854.1      18.21%    passed     52.97%
+   3  NP_982470.1      18.49%    passed     85.46%
+   4  XP_452671.1      18.86%    failed      4.34%
+   5  XP_721868.2      13.63%    passed     36.38%
+   6  XP_462426.1      12.70%    passed      6.57%
+   7  XP_028889211.1   13.54%    passed     50.10%
+   8  ODV97345.1       10.74%    passed     10.02%
+   9  XP_002491774.1   18.21%    passed     35.35%
+  10  XP_505385.1      15.59%    passed     11.83%
+  11  SMY19906.1       12.32%    passed     51.83%
+  12  XP_001797133.1   11.95%    passed     36.06%
+  13  XP_001590366.1   11.76%    passed     24.33%
+  14  XP_961563.2      11.67%    passed      5.81%
+  15  XP_011326696.1   11.76%    passed      8.17%
+  16  EEH08335.1       10.46%    passed     84.26%
+  17  XP_001243079.2   11.39%    passed     79.12%
+  18  XP_752507.1      11.02%    passed     74.52%
+  19  XP_658762.1      11.58%    passed     67.29%
+  20  CRL22673.1       11.39%    passed     21.17%
+  21  XP_002839150.1   13.35%    passed     29.02%
+  22  ORY78509.1       19.23%    passed     12.78%
+  23  ODQ70873.1       16.62%    passed     48.82%
+  24  XP_019020799.1   14.47%    failed      1.21%
+  25  GAO51867.1       13.35%    failed      1.40%
+  26  ODV91698.1       24.28%    passed     80.63%
+  27  XP_003324138.1   18.67%    passed     16.80%
+  28  XP_007329347.1   18.86%    passed     42.14%
+  29  EGO01908.1       18.49%    passed     26.83%
+  30  XP_012050922.1   20.63%    passed     29.77%
+  31  XP_011387156.1   19.70%    passed     11.59%
+  32  RIB17962.1       15.22%    passed     88.56%
+  33  EXX74607.1       15.41%    passed     43.60%
+  34  OAQ31519.1       22.69%    passed     99.94%
+  35  OAQ23985.1       22.60%    passed     87.50%
+  36  XP_021880184.1   22.60%    passed     99.60%
+  37  CDH60523.1       23.34%    passed     85.76%
+  38  XP_018293059.1   33.71%    passed     58.35%
+  39  OBZ90828.1       23.90%    passed     71.08%
+  40  EPB92428.1       23.53%    passed     89.58%
+  41  EIE79534.1       24.74%    passed      9.50%
+  42  XP_018297613.1   24.00%    passed     55.56%
+  43  EPB81809.1       21.57%    passed     41.92%
+  44  EIE87097.1       25.77%    passed     24.40%
+  45  OBZ83463.1       24.18%    passed     44.67%
+  46  CDH55297.1       24.09%    failed      4.43%
+  47  XP_016610762.1   19.33%    passed     64.77%
+  48  CDH58442.1       19.70%    passed     70.50%
+  49  CDH53421.1       21.76%    passed     74.18%
+  50  XP_018295507.1   22.13%    passed     44.28%
+  51  OBZ81863.1       19.05%    passed     92.43%
+  52  EPB91856.1       18.39%    passed     78.41%
+  53  XP_018288856.1   19.70%    failed      4.84%
+  54  EIE78579.1       19.61%    passed     84.83%
+  55  EPB83540.1       21.57%    passed     65.91%
+  56  OBZ88622.1       21.29%    passed     57.43%
+  57  EIE84692.1       22.22%    passed     85.00%
+  58  EIE90034.1       22.13%    passed     92.79%
+  59  CDH57086.1       21.01%    passed     34.59%
+  60  OBZ85465.1       28.66%    failed      2.01%
+  61  EPB85527.1       23.53%    passed     47.56%
+  62  CDH59155.1       21.76%    passed     92.63%
+  63  XP_018299381.1   18.86%    failed      4.18%
+  64  EIE86185.1       32.31%    failed      0.00%
+  65  ORY51419.1       17.27%    passed     46.51%
+  66  XP_006676968.1   24.93%    passed     15.61%
+  67  XP_030837613.1   27.82%    passed     14.23%
+  68  NP_689596.4      25.68%    passed      9.92%
+  69  XP_004996901.1   26.24%    failed      0.10%
+  70  XP_001744174.1   46.78%    passed     11.52%
+  71  NP_498160.2      28.48%    passed     60.10%
+  72  XP_004343707.2   15.50%    failed      1.11%
+  73  KNE56473.1       25.58%    failed      0.40%
+  74  KNE54823.1       25.21%    failed      0.32%
+  75  PIA17543.1       28.94%    failed      0.01%
+  76  ORY85672.1       23.44%    failed      0.00%
+  77  O14040.1         30.44%    failed      4.90%
+  78  XP_002175003.1   30.35%    passed     24.38%
+  79  XP_020435989.1   27.82%    passed     60.63%
+  80  XP_641919.1      27.08%    failed      0.00%
+  81  XP_003283598.1   29.60%    failed      0.03%
+  82  XP_004361707.1   36.51%    passed     59.12%
+  83  XP_004367466.1   22.50%    failed      0.02%
+  84  CDH60622.1       30.07%    failed      0.00%
+  85  OBZ83949.1       35.29%    passed     53.85%
+  86  EPB90552.1       30.53%    passed     83.37%
+  87  EIE80403.1       57.42%    passed     21.27%
+  88  XP_001728646.1   25.49%    failed      0.07%
+  89  KXN68223.1       20.92%    failed      0.39%
+  90  ORX43377.1       20.07%    failed      0.00%
+  91  ORY24922.1       25.21%    failed      0.00%
+  92  ORY56506.1       19.14%    failed      0.00%
+  93  ORX85520.1       20.73%    failed      0.00%
+  94  O74454.1         30.07%    failed      1.81%
+  95  XP_002173060.2   30.44%    passed      8.52%
+  96  O94525.1         20.07%    failed      0.04%
+  97  XP_002174298.2   20.82%    passed      5.71%
+  98  NP_612012.1      30.63%    passed     28.99%
+  99  XP_030838165.1   22.22%    failed      0.41%
+WARNING: 1 sequences contain more than 50% gaps/ambiguity
+****  TOTAL            21.93%  28 sequences failed composition chi2 test (p-value<5%; df=19)
+
+
+Create initial parsimony tree by phylogenetic likelihood library (PLL)... 0.083 seconds
+Perform fast likelihood tree search using LG+I+G model...
+Estimate model parameters (epsilon = 5.000)
+Perform nearest neighbor interchange...
+Estimate model parameters (epsilon = 1.000)
+1. Initial log-likelihood: -118055.524
+Optimal log-likelihood: -118055.426
+Proportion of invariable sites: 0.006
+Gamma shape alpha: 1.356
+Parameters optimization took 1 rounds (0.125 sec)
+Time for fast ML tree search: 1.422 seconds
+
+NOTE: ModelFinder requires 208 MB RAM!
+ModelFinder will test up to 26 protein models (sample size: 1071) ...
+ No. Model         -LnL         df  AIC          AICc         BIC
+  1  LG            122248.815   195 244887.630   244974.990   245858.017
+  2  LG+I          122047.511   196 244487.022   244575.379   245462.386
+  3  LG+G4         118086.596   196 236565.191   236653.548   237540.556
+  4  LG+I+G4       118055.431   197 236504.862   236594.223   237485.203
+  5  LG+R2         119004.300   197 238402.600   238491.961   239382.940
+  6  LG+R3         118263.170   199 236924.341   237015.730   237914.634
+  7  LG+R4         118002.620   201 236407.240   236500.685   237407.486
+  8  LG+R5         117916.180   203 236238.361   236333.890   237248.560
+  9  LG+R6         117869.553   205 236149.105   236246.747   237169.256
+ 10  LG+R7         117862.194   207 236138.389   236238.171   237168.493
+ 11  LG+R8         117861.270   209 236140.539   236242.490   237180.596
+ 22  LG+F+R6       117776.046   224 236000.092   236119.241   237114.794
+ 23  LG+F+R7       117767.519   226 235987.038   236108.606   237111.692
+Akaike Information Criterion:           LG+F+R7
+Corrected Akaike Information Criterion: LG+F+R7
+Bayesian Information Criterion:         LG+F+R7
+Best-fit model: LG+F+R7 chosen according to BIC
+
+All model information printed to output.model.gz
+CPU time for ModelFinder: 668.751 seconds (0h:11m:8s)
+Wall-clock time for ModelFinder: 29.982 seconds (0h:0m:29s)
+Generating 10000 samples for ultrafast bootstrap (seed: 383009)...
+
+NOTE: 158 MB RAM (0 GB) is required!
+Estimate model parameters (epsilon = 0.100)
+1. Initial log-likelihood: -117767.519
+Optimal log-likelihood: -117767.519
+Site proportion and rates:  (0.043,0.045) (0.089,0.207) (0.203,0.422) (0.238,0.732) (0.188,1.150) (0.170,1.736) (0.070,2.974)
+Parameters optimization took 1 rounds (0.234 sec)
+Computing ML distances based on estimated model parameters... 3.131 sec
+Computing BIONJ tree...
+0.014 seconds
+Log-likelihood of BIONJ tree: -117887.316
+--------------------------------------------------------------------
+|             INITIALIZING CANDIDATE TREE SET                      |
+--------------------------------------------------------------------
+Generating 98 parsimony trees... 6.910 second
+Computing log-likelihood of 98 initial trees ... 8.730 seconds
+Current best score: -117767.519
+
+Do NNI search on 20 best initial trees
+Estimate model parameters (epsilon = 0.100)
+BETTER TREE FOUND at iteration 1: -117766.935
+Estimate model parameters (epsilon = 0.100)
+BETTER TREE FOUND at iteration 2: -117764.398
+Iteration 10 / LogL: -117819.972 / Time: 0h:0m:36s
+Iteration 20 / LogL: -117791.257 / Time: 0h:0m:55s
+Finish initializing candidate tree set (11)
+Current best tree score: -117764.398 / CPU time: 53.724
+Number of iterations: 20
+--------------------------------------------------------------------
+|               OPTIMIZING CANDIDATE TREE SET                      |
+--------------------------------------------------------------------
+Estimate model parameters (epsilon = 0.100)
+BETTER TREE FOUND at iteration 22: -117763.471
+Estimate model parameters (epsilon = 0.100)
+BETTER TREE FOUND at iteration 23: -117763.053
+Estimate model parameters (epsilon = 0.100)
+UPDATE BEST LOG-LIKELIHOOD: -117762.863
+Estimate model parameters (epsilon = 0.100)
+BETTER TREE FOUND at iteration 25: -117751.585
+Estimate model parameters (epsilon = 0.100)
+BETTER TREE FOUND at iteration 28: -117748.198
+Iteration 30 / LogL: -117764.555 / Time: 0h:1m:21s (0h:4m:36s left)
+Estimate model parameters (epsilon = 0.100)
+BETTER TREE FOUND at iteration 32: -117747.041
+Iteration 40 / LogL: -117763.099 / Time: 0h:1m:40s (0h:3m:56s left)
+Iteration 50 / LogL: -117748.875 / Time: 0h:1m:52s (0h:3m:8s left)
+Iteration 60 / LogL: -117751.377 / Time: 0h:2m:1s (0h:2m:28s left)
+Iteration 70 / LogL: -117762.883 / Time: 0h:2m:10s (0h:1m:57s left)
+Estimate model parameters (epsilon = 0.100)
+BETTER TREE FOUND at iteration 79: -117746.074
+Iteration 80 / LogL: -117747.313 / Time: 0h:2m:21s (0h:2m:56s left)
+Iteration 90 / LogL: -117746.272 / Time: 0h:2m:30s (0h:2m:30s left)
+Iteration 100 / LogL: -117763.167 / Time: 0h:2m:40s (0h:2m:7s left)
+Estimate model parameters (epsilon = 0.100)
+BETTER TREE FOUND at iteration 105: -117744.309
+Iteration 110 / LogL: -117748.453 / Time: 0h:2m:50s (0h:2m:28s left)
+Iteration 120 / LogL: -117752.012 / Time: 0h:2m:59s (0h:2m:7s left)
+Iteration 130 / LogL: -117753.391 / Time: 0h:3m:9s (0h:1m:49s left)
+Iteration 140 / LogL: -117745.514 / Time: 0h:3m:18s (0h:1m:32s left)
+Iteration 150 / LogL: -117749.510 / Time: 0h:3m:28s (0h:1m:16s left)
+Iteration 160 / LogL: -117751.581 / Time: 0h:3m:37s (0h:1m:1s left)
+Iteration 170 / LogL: -117760.546 / Time: 0h:3m:47s (0h:0m:47s left)
+Iteration 180 / LogL: -117745.493 / Time: 0h:3m:56s (0h:0m:33s left)
+Iteration 190 / LogL: -117746.437 / Time: 0h:4m:6s (0h:0m:19s left)
+Iteration 200 / LogL: -117744.788 / Time: 0h:4m:15s (0h:0m:6s left)
+Refining ufboot trees with NNI 1 branch...
+100 samples done
+200 samples done
+300 samples done
+400 samples done
+500 samples done
+600 samples done
+700 samples done
+800 samples done
+900 samples done
+1000 samples done
+1100 samples done
+1200 samples done
+1300 samples done
+1400 samples done
+1500 samples done
+1600 samples done
+1700 samples done
+1800 samples done
+1900 samples done
+2000 samples done
+2100 samples done
+2200 samples done
+2300 samples done
+2400 samples done
+2500 samples done
+2600 samples done
+2700 samples done
+2800 samples done
+2900 samples done
+3000 samples done
+3100 samples done
+3200 samples done
+3300 samples done
+3400 samples done
+3500 samples done
+3600 samples done
+3700 samples done
+3800 samples done
+3900 samples done
+4000 samples done
+4100 samples done
+4200 samples done
+4300 samples done
+4400 samples done
+4500 samples done
+4600 samples done
+4700 samples done
+4800 samples done
+4900 samples done
+5000 samples done
+5100 samples done
+5200 samples done
+5300 samples done
+5400 samples done
+5500 samples done
+5600 samples done
+5700 samples done
+5800 samples done
+5900 samples done
+6000 samples done
+6100 samples done
+6200 samples done
+6300 samples done
+6400 samples done
+6500 samples done
+6600 samples done
+6700 samples done
+6800 samples done
+6900 samples done
+7000 samples done
+7100 samples done
+7200 samples done
+7300 samples done
+7400 samples done
+7500 samples done
+7600 samples done
+7700 samples done
+7800 samples done
+7900 samples done
+8000 samples done
+8100 samples done
+8200 samples done
+8300 samples done
+8400 samples done
+8500 samples done
+8600 samples done
+8700 samples done
+8800 samples done
+8900 samples done
+9000 samples done
+9100 samples done
+9200 samples done
+9300 samples done
+9400 samples done
+9500 samples done
+9600 samples done
+9700 samples done
+9800 samples done
+9900 samples done
+10000 samples done
+Total 9979 ufboot trees refined
+TREE SEARCH COMPLETED AFTER 206 ITERATIONS / Time: 0h:48m:48s
+
+--------------------------------------------------------------------
+|                    FINALIZING TREE SEARCH                        |
+--------------------------------------------------------------------
+Performs final model parameters optimization
+Estimate model parameters (epsilon = 0.010)
+1. Initial log-likelihood: -117744.309
+Optimal log-likelihood: -117744.305
+Site proportion and rates:  (0.044,0.046) (0.095,0.215) (0.209,0.437) (0.252,0.762) (0.186,1.231) (0.147,1.800) (0.066,3.022)
+Parameters optimization took 1 rounds (0.205 sec)
+BEST SCORE FOUND : -117744.305
+Ancestral state probabilities printed to output.state
+Creating bootstrap support values...
+Split supports printed to NEXUS file output.splits.nex
+Total tree length: 67.304
+
+Total number of iterations: 206
+CPU time used for tree search: 65513.079 sec (18h:11m:53s)
+Wall-clock time used for tree search: 2926.399 sec (0h:48m:46s)
+Total CPU time used: 65595.309 sec (18h:13m:15s)
+Total wall-clock time used: 2933.171 sec (0h:48m:53s)
+UFBoot trees printed to output.ufboot
+
+Computing bootstrap consensus tree...
+Reading input file output.splits.nex...
+99 taxa and 685 splits.
+Consensus tree written to output.contree
+Reading input trees file output.contree
+Log-likelihood of consensus tree: -117745.945
+
+Analysis results written to: 
+  IQ-TREE report:                output.iqtree
+  Maximum-likelihood tree:       output.treefile
+  Likelihood distances:          output.mldist
+  Ancestral state:               output.state
+  All intermediate trees:        output.treels
+
+Ultrafast bootstrap approximation results written to:
+  Split support values:          output.splits.nex
+  Consensus tree:                output.contree
+  UFBoot trees:                  output.ufboot
+  Screen log file:               output.log
+
+Date and Time: Fri Jul 17 10:08:26 2020

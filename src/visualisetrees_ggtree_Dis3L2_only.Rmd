@@ -1,0 +1,307 @@
+---
+title: "Trees for Dis3L2/Ssd1 homologs"
+author: "Edward Wallace"
+date: "18/07/2020"
+output: 
+  html_document:
+      toc: true
+---
+
+# Summary
+
+This document is to analyse phylogenetic trees produced for Ssd1/Dis3L2 homologs.
+
+Full raw sequences are in: `data/Dis3_families/Dis3L2_BLASTp_select_fullseqs.fasta`. 
+
+File `data/Dis3L2_only/Dis3L2_BLASTp_select_fullseqs_mafftlocal_trimal_deltaNterm1to337.fasta` has the mafft-default-aligned, reordered, trimmed sequences. We ran IQ-TREE on those files on the CIPRES server. This file analyses phylogenetic data from IQ-TREE results.
+
+* Phylogenetic trees with bootstrap and clade information (figure 2B)
+* Matched heatmaps of protein feature information (figure 2C)
+* Percent identity matrix of domains CSD1+2 and RNII (figure 3)
+
+```{r setup, echo=FALSE,message=FALSE}
+knitr::opts_chunk$set(echo = TRUE,cache=FALSE)
+library(here)
+library(tidyverse)
+library(ggtree)
+library(treeio)
+library(cowplot)
+library(ggnewscale)
+```
+
+# IQ-TREE results
+
+```{r load_IQTREE}
+# load node labels
+treedef_IQML <- 
+  here::here("data", "IQ-TREE_Dis3L2_only",
+             "output.treefile") %>%
+  treeio::read.tree()
+
+# replace "node.labels" with separate node ids and bootstrap values
+treedef_IQML$node.id <- stringr::str_extract(treedef_IQML$node.label,"Node[0-9]")
+treedef_IQML$node.label <- stringr::str_remove(treedef_IQML$node.label,"Node[0-9]+/*")
+```
+
+## Reroot to Amoebae ancestor
+
+These trees were rooted to *S. cerevisiae* so we reroot immediately to the amoebazoa ancestor, MRCA of:
+* XP_641919.1 hypothetical protein DDB_G0278757 [Dictyostelium discoideum AX4]
+* XP_004367466.1 RNB family domain containing protein [Acanthamoeba castellanii str. Neff]
+
+
+```{r reroot_amoebae_IQML}
+amoebae_MRCA_IQML <- MRCA(treedef_IQML,"XP_641919.1","XP_004367466.1")
+
+tree_IQML <- ape::root(treedef_IQML,
+                       node=amoebae_MRCA_IQML)
+```
+
+
+### Plot default with node support labels
+
+```{r plot_IQML,dependson="load_IQTREE",fig.height=7, fig.width=5}
+ggtree(tree_IQML) +
+    geom_tiplab(size=2) + 
+    geom_treescale(fontsize=4) +
+    geom_nodelab(size=2,nudge_x=0.05,colour="blue")
+```
+
+
+# Load info and features
+
+Load data frame with sequence info and features 
+
+```{r load_features}
+Dis3L2_features_df <- 
+  here::here("data", "Dis3L2_only", "Dis3L2_BLASTp_select_features.txt") %>%
+  read_tsv(comment="#", col_types = c("cccccliiiiiiiil"))%>%
+  mutate(Extension=replace_na(Extension, ""),
+         Clade = factor(Clade, levels = unique(Clade))
+         )
+```
+
+## Integrate features with IQ-TREE data
+
+```{r plot_taxa_IQML,dependson=c("load_features","reroot_amoebae_IQML"),fig.height=7,fig.width=7}
+ggt_taxa_IQML <- 
+  ggtree(tree_IQML,ladderize=FALSE) %<+% 
+  dplyr::rename(Dis3L2_features_df,label=ID) +
+    geom_tiplab(aes(label=paste(Organism,Extension),colour=Clade),
+                size=2, key_glyph="rect",offset=0.05) + 
+    scale_color_brewer(type="qual",palette="Dark2") +
+    # geom_treescale(fontsize=3.6,y=2) +
+    # geom_nodelab(size=1.8,nudge_x=0.04) + 
+    ggnewscale::new_scale_color() + 
+    geom_nodepoint(aes(colour=as.numeric(label)),size=1.8) +
+    scale_colour_gradient("bootstrap\nsupport",low="grey95",high="black") + 
+    scale_y_reverse(expand=c(0.02,0.02)) + 
+    scale_x_continuous(expand=c(0.01,0.01),
+                       breaks=c(0:3,3.5),
+                       labels=c(0:3,"Substns. per site")) + 
+    coord_cartesian(clip="off",) + 
+    theme(legend.position=c(0.1,0.7),
+          plot.margin=margin(t=5,r = 82, b=5, l=10),
+          axis.line.x.bottom = element_line(size=0.5,colour="black"),
+          axis.ticks.x.bottom = element_line(size=0.5,colour="black"),
+          axis.text.x = element_text(size=10,colour="black"))
+ggt_taxa_IQML
+```
+
+## Get tips in order from tree
+
+```{r extract_tiporder_tree,dependson="plot_taxa_IQML"}
+Dis3L2_features_df_treeIQML_order <- 
+  ggt_taxa_IQML$data %>%
+  filter(isTip) %>%
+  arrange(y)
+Dis3L2_features_df_treeIQML_order
+
+Dis3L2_treeIQML_orderonly <- Dis3L2_features_df_treeIQML_order$label
+```
+
+## Plot some features in tree order
+
+```{r plot_featuresmap,dependson="extract_tiporder_tree"}
+p_activesite <- ggplot(data=Dis3L2_features_df_treeIQML_order,
+                       aes(y=y,fill=activesite,x=1)) + 
+  geom_tile() + 
+  scale_y_reverse(expand=c(0.02,0.02)) + 
+  theme_void() +
+  scale_fill_manual(values=c("FALSE"="grey95","TRUE"="purple")) +
+  labs(title="active site") +
+  theme(plot.title=element_text(size = 10,colour = "black",angle=90,vjust=0.5),
+        legend.position="none")
+
+p_NLS <- ggplot(data=Dis3L2_features_df_treeIQML_order,
+                       aes(y=y,fill=NLS_Ssd1like,x=1)) + 
+  geom_tile() + 
+  scale_y_reverse(expand=c(0.02,0.02)) + 
+  theme_void() +
+  scale_fill_manual(values=c("FALSE"="grey95","TRUE"="red3"))  +
+  labs(title="Nuc. Loc. Seq") +
+  theme(plot.title=element_text(size = 10,colour = "black",angle=90,vjust=0.5),
+        legend.position="none")
+
+p_Cbk1phos <- ggplot(data=Dis3L2_features_df_treeIQML_order,
+                       aes(y=y,fill=cbk1cons_count>0,x=1)) + 
+  geom_tile() + 
+  scale_y_reverse(expand=c(0.02,0.02)) + 
+  theme_void() +
+  scale_fill_manual(values=c("FALSE"="grey95","TRUE"="darkblue"))  +
+  labs(title="Cbk1 phos. sites") +
+  theme(plot.title=element_text(size = 10,colour = "black",angle=90,vjust=0.5),
+        legend.position="none")
+
+p_Cbk1dock <- ggplot(data=Dis3L2_features_df_treeIQML_order,
+                       aes(y=y,fill=cbk1dock_count>0,x=1)) + 
+  geom_tile() + 
+  scale_y_reverse(expand=c(0.02,0.02)) + 
+  theme_void() +
+  scale_fill_manual(values=c("FALSE"="grey95","TRUE"="darkblue"))  +
+  labs(title="Cbk1 dock. site") +
+  theme(plot.title=element_text(size = 10,colour = "black",angle=90,vjust=0.5),
+        legend.position="none")
+
+plot_grid(p_activesite,p_NLS, p_Cbk1phos, p_Cbk1dock,
+          nrow=1,align="h")
+```
+
+## Plot the tree with the feature heatmaps
+
+```{r plot_taxa_IQML_featureheatmaps,dependson="plot_featuresmap",fig.height=8,fig.width=8}
+plot_taxa_IQML_featureheatmaps <- 
+  plot_grid(ggt_taxa_IQML,p_activesite,p_NLS, p_Cbk1phos, p_Cbk1dock,
+          align="h", rel_widths = c(36,1,1,1,1),nrow=1)
+plot_taxa_IQML_featureheatmaps
+
+ggsave(filename = here::here("figure","figure2_taxa_IQML_featureheatmaps.svg"),
+       plot = plot_taxa_IQML_featureheatmaps,
+       width = 8, height = 8)
+```
+
+## Reorder the list of sequences by tip order
+
+```{r reorder_seqs,dependson="extract_tiporder_tree",results="show"}
+Dis3L2_features_df_treeIQML_order
+
+fasta_mafftlocal_trimal_deltaNterm1to337 <- 
+  here::here("data","Dis3L2_only",
+  "Dis3L2_BLASTp_select_fullseqs_mafftlocal_trimal_deltaNterm1to337.fasta") %>%
+  Biostrings::readAAStringSet() %>%
+  .[Dis3L2_features_df_treeIQML_order$label]
+fasta_mafftlocal_trimal_deltaNterm1to337
+
+# Biostrings::writeXStringSet(
+#   fasta_mafftlocal_trimal_deltaNterm1to337,
+#     here::here("data","Dis3L2_only",
+#   "Dis3L2_BLASTp_select_fullseqs_mafftlocal_trimal_deltaNterm1to337_treeIQMLorder.fasta") 
+#   )
+```
+
+## Pairwise sequence identity 
+
+For domains:
+
+* delta N-terminal 1-337 (not plotted)
+* CSD1+2, aligned to ScSsd1 338-659
+* RNII, aligned to ScSsd1 689-1014
+
+### Calculate distance matrix and percent identity matrix in tidy format
+
+```{r calculate_percent_identity,dependson="reorder_seqs"}
+dist_deltaNterm1to337 <- 
+  fasta_mafftlocal_trimal_deltaNterm1to337 %>%
+  Biostrings::stringDist(method="hamming") %>%
+  broom::tidy() %>%
+  dplyr::transmute(ID1=factor(item1,levels=Dis3L2_treeIQML_orderonly),
+                   ID2=factor(item2,levels=Dis3L2_treeIQML_orderonly),
+                   ID2rev=factor(item2,levels=rev(Dis3L2_treeIQML_orderonly)),
+                   seqwidth=1071,
+                percid = (seqwidth-distance)/seqwidth * 100)
+
+dist_CSD12 <- 
+  fasta_mafftlocal_trimal_deltaNterm1to337 %>%
+  Biostrings::subseq(start=1,end=324) %>%
+  Biostrings::stringDist(method="hamming") %>%
+  broom::tidy() %>%
+  dplyr::transmute(ID1=factor(item1,levels=Dis3L2_treeIQML_orderonly),
+                   ID2=factor(item2,levels=Dis3L2_treeIQML_orderonly),
+                   ID2rev=factor(item2,levels=rev(Dis3L2_treeIQML_orderonly)),
+                   seqwidth=324,
+                percid = (seqwidth-distance)/seqwidth * 100)
+
+dist_RNII <- 
+  fasta_mafftlocal_trimal_deltaNterm1to337 %>%
+  Biostrings::subseq(start=356,end=712) %>%
+  Biostrings::stringDist(method="hamming") %>%
+  broom::tidy() %>%
+  dplyr::transmute(ID1=factor(item1,levels=Dis3L2_treeIQML_orderonly),
+                   ID2=factor(item2,levels=Dis3L2_treeIQML_orderonly),
+                   ID2rev=factor(item2,levels=rev(Dis3L2_treeIQML_orderonly)),
+                   seqwidth=357,
+                percid = (seqwidth-distance)/seqwidth * 100) 
+```
+
+### Plot percent identity matrices as heatmaps
+
+```{r plot percent_identity,dependson="calculate_percent_identity",fig.height=4,fig.width=4.5,echo=FALSE}
+ggplot(dist_deltaNterm1to337,aes(x=ID1,y=ID2rev,fill=percid)) + 
+  geom_tile() + 
+  scale_fill_gradient("Percent\nidentity",
+                      low="white",high="darkblue",limits=c(0,100)) + 
+  theme_void() + 
+  ggtitle("deltaNterm 1to337")
+
+plotdist_CSD12 <- 
+ggplot(dist_CSD12,aes(x=ID1,y=ID2rev,fill=percid)) + 
+  geom_tile() + 
+  scale_fill_gradient("Percent\nidentity",
+                      low="white",high="darkblue",limits=c(0,100)) + 
+  theme_void() + 
+  ggtitle("CSD1+2 domains")
+
+plotdist_RNII <- 
+ggplot(dist_RNII,aes(x=ID1,y=ID2rev,fill=percid)) + 
+  geom_tile() + 
+  scale_fill_gradient("Percent identity",
+                      low="white",high="darkblue",limits=c(0,100),
+                      guide = guide_legend(direction="horizontal",
+                                           title.position="top",
+                                           label.position = "bottom")
+  ) + 
+  theme_void() +
+  ggtitle("RNII domain")
+
+plotclade_stripe <- 
+  ggplot(data=Dis3L2_features_df %>%
+           mutate(IDrev=factor(ID,levels=rev(Dis3L2_treeIQML_orderonly)))
+         ) + 
+  scale_fill_brewer(type="qual",palette="Dark2") +
+  geom_tile(aes(x=1,y=IDrev,fill=Clade)) +
+  theme_void() +
+  ggtitle("Clade")
+```
+
+### Plot  percent identity of domains including cladogram information
+
+```{r percent_identity_cladogram,dependson="percent_identity",fig.height=4,fig.width=8,echo=FALSE}
+percent_identity_cladogram <-
+  plot_grid(ggtree(tree_IQML,branch.length="none"),
+            plotclade_stripe + 
+              theme(legend.position="none",
+                    plot.title = element_text(hjust = 1.0)),
+            plotdist_CSD12 + 
+              theme(legend.position="none",
+                    plot.title = element_text(hjust = 0.5)),
+            plotdist_RNII   + 
+              theme(legend.position=c(0.4, 0.1),
+                    legend.background = element_rect(colour="grey75"),
+                    plot.title = element_text(hjust = 0.5)),
+            rel_widths=c(15,5,100,100),nrow=1,align="h")
+percent_identity_cladogram
+
+ggsave(filename = here::here("figure","figure3_percent_identity_cladogram.svg"), 
+       plot = percent_identity_cladogram,
+       width = 8, height = 4)
+```
