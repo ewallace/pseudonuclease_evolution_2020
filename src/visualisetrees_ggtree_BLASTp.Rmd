@@ -311,9 +311,15 @@ ggs_activesitebygroup
 ### Composite figure, Figure 1 of manuscript
 
 ```{r figure1_Dis3cladesAB,dependson=c("plot_Dis3groups_reroot_equalangle","seqlogo_activeRNIIgroup"), fig.height=3, fig.width=6}
-cowplot::plot_grid(ggt_Dis3groups_reroot_equalangle,
-          ggs_activesitebygroup,
-          nrow=1,labels=c("A","B"))
+figure1_Dis3cladesAB <- 
+  cowplot::plot_grid(ggt_Dis3groups_reroot_equalangle,
+                     ggs_activesitebygroup,
+                     nrow=1,labels=c("A","B"))
+figure1_Dis3cladesAB
+
+ggsave(filename = here::here("figure","figure1_Dis3cladesAB.png"), 
+       plot = figure1_Dis3cladesAB,
+       width = 6, height = 3)
 ```
 
 
