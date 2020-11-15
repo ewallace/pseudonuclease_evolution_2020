@@ -301,7 +301,7 @@ percent_identity_cladogram <-
             rel_widths=c(15,5,100,100),nrow=1,align="h")
 percent_identity_cladogram
 
-ggsave(filename = here::here("figure","figure3_percent_identity_cladogram.svg"), 
+ggsave(filename = here::here("figure","figure3_percent_identity_cladogram.png"), 
        plot = percent_identity_cladogram,
        width = 8, height = 4)
 ```

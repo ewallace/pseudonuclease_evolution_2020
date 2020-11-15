@@ -133,6 +133,8 @@ ggtree(tidytree::groupClade(tree_IQML_amoebaroot,Dis3_clades),
 
 ## Plot tree in equal angle summary figure
 
+We highlight S. cerevisiae Ssd1, `NP_010579.1`, with a label.
+
 ```{r plot_Dis3groups_reroot_equalangle,dependson="find_Dis3groups_reroot",fig.height=3,fig.width=3}
 ggt_Dis3groups_reroot_equalangle <- 
   ggtree(tidytree::groupClade(tree_IQML_amoebaroot,Dis3_clades),
@@ -141,6 +143,8 @@ ggt_Dis3groups_reroot_equalangle <-
   scale_color_manual("Ortholog\ngroup",
                      values=Dis3_colours, 
                      breaks=names(Dis3_colours)[2:6]) + 
+    geom_tiplab2(aes(subset=(label=="NP_010579.1")),
+                 label="Ssd1", colour="black")+ 
   theme(legend.position=c(0.85,0.25))
 
 ggt_Dis3groups_reroot_equalangle
@@ -308,17 +312,17 @@ ggs_activesitebygroup <-
 ggs_activesitebygroup
 ```
 
-### Composite figure, Figure 1 of manuscript
+### Composite figure, Figure 1C and 1D  of manuscript
 
-```{r figure1_Dis3cladesAB,dependson=c("plot_Dis3groups_reroot_equalangle","seqlogo_activeRNIIgroup"), fig.height=3, fig.width=6}
-figure1_Dis3cladesAB <- 
+```{r figure1_Dis3clades,dependson=c("plot_Dis3groups_reroot_equalangle","seqlogo_activeRNIIgroup"), fig.height=3, fig.width=6}
+figure1_Dis3cladesCD <- 
   cowplot::plot_grid(ggt_Dis3groups_reroot_equalangle,
                      ggs_activesitebygroup,
-                     nrow=1,labels=c("A","B"))
-figure1_Dis3cladesAB
+                     nrow=1,labels=c("C","D"))
+figure1_Dis3cladesCD
 
-ggsave(filename = here::here("figure","figure1_Dis3cladesAB.png"), 
-       plot = figure1_Dis3cladesAB,
+ggsave(filename = here::here("figure","figure1_Dis3cladesCD.pdf"), 
+       plot = figure1_Dis3cladesCD,
        width = 6, height = 3)
 ```
 
