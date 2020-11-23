@@ -1,7 +1,7 @@
 ---
 title: "Estimate features for Dis3L2 homologs"
 author: "Edward Wallace"
-date: "17/07/2020"
+date: "23/11/2020"
 output: html_document
 ---
 
@@ -101,18 +101,27 @@ cdk1cons_df
 
 ## Score for active site
 
-Score presence of the active site `D[A-Z]{7}DD`, within the 20 nts up/down of the visually-inspected S. pombe Dis3L2 active site in the trimmed alignment.
+Within the 20 nts up/down of the visually-inspected S. pombe Dis3L2 active site in the trimmed alignment, score presence of three active site aspartic acids that co-ordinate the catalytic magnesium ion, `D[A-Z]{7}DD`.
+
+Also of the active site including a 4th aspartic acid thought to co-ordinate the mRNA in the active site, `D[A-Z]{5}D[A-Z]DD`.
+
+
 
 ```{r score_activesite,dependson="load_seqs"}
 activesite = "D[A-Z]{7}DD"
 activesite_pos <- 1174
+
+activesite_D4 = "D[A-Z]{5}D[A-Z]DD"
 
 activesite_df <-
     tibble(ID = names(Dis3L2_trimal_alnseqs) %>% 
                stringr::str_extract("[\\w.]+"),
         activesite = as.character(Dis3L2_trimal_alnseqs) %>% 
             stringr::str_sub(start = activesite_pos-20, end=activesite_pos+20) %>%
-            stringr::str_detect(activesite))
+            stringr::str_detect(activesite),
+        activesite_all4Ds = as.character(Dis3L2_trimal_alnseqs) %>% 
+            stringr::str_sub(start = activesite_pos-20, end=activesite_pos+20) %>%
+            stringr::str_detect(activesite_D4))
 
 activesite_df
 ```
@@ -199,7 +208,24 @@ write_lines(c("# Dis3L2_BLASTp_select_features.txt",
             "# calculated from Dis3L2_BLASTp_select_fullseqs_mafftlocal.fasta, etc.",
             "# taxonomic info, active site, cbk1 consensus phosphorylation site, cdk1 sites, nuclear localisation sequence",
             "# see estimate_features_Dis3L2_only.Rmd for full descriptions and code",
-            "# Edward.Wallace@ed.ac.uk, 17 July 2020",
+            "# Edward.Wallace@ed.ac.uk, 17 July 2020, updated 23rd November 2020",
+            "# fields:",
+            "#   ID: NCBI RefSeq ID of protein",
+            "#   Organism: Genus species name of organism",
+            "#   Info: NCBI information",
+            "#   Clade: rough clade-level label to use",
+            "#   Extension: name or number used to disambiguate multiple homologs in same organism",
+            "#   activesite: TRUE if D[A-Z]{7}DD aligns with active site position",
+            "#   activesite_all4Ds: TRUE if D[A-Z]{5}D[A-Z]DD",
+            "#   cbk1cons_count: count in N-terminus of cbk1 phosphorylation site H[A-Z]([A-Z][RK]|[RK][A-Z])[A-Z][ST]",
+            "#   cbk1dock_count: count in N-terminus of cbk1 docking site [YF][A-Z]FP",
+            "#   cdk1cons_count: count in whole protein of cdk1 phosphorylation site [ST]P[A-Z][KR]",
+            "#   cdk1consdock_count: count in whole protein of cdk1 phosphorylation site with docking site [ST][QP][A-Z]{5,20}[KR][A-Z]L",
+            "#   cdk1cons_count_Nt: count in n-terminus of cdk1 phosphorylation site [ST]P[A-Z][KR]",
+            "#   cdk1consdock_count_Nt: count in n-terminus of cdk1 phosphorylation site with docking site [ST][QP][A-Z]{5,20}[KR][A-Z]L",
+            "#   NLS_bi_count: count in whole protein of bipartite nuclear localisation sequence [KR]{2}[A-Z]{9,12}[KR]{3,5}",
+            "#   NLS_mono_count: count in whole protein of monopartite nuclear localisation sequence [KR]{4,6}",
+            "#   NLS_Ssd1like: TRUE if Ssd1-like NLS is present in alignment, ([KRE]{2,4}[ADHILMNVSPQ]{0,3}){2,5}",
             "# "),
             path=Dis3L2_features_file)
 write_tsv(Dis3L2_features_df, path=Dis3L2_features_file, 
