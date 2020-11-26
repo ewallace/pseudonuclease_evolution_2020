@@ -75,7 +75,7 @@ Load data frame with sequence info and features
 ```{r load_features}
 Dis3L2_features_df <- 
   here::here("data", "Dis3L2_only", "Dis3L2_BLASTp_select_features.txt") %>%
-  read_tsv(comment="#", col_types = c("cccccliiiiiiiil"))%>%
+  read_tsv(comment="#", col_types = c("ccccclliiiiiiiil"))%>%
   mutate(Extension=replace_na(Extension, ""),
          Clade = factor(Clade, levels = unique(Clade))
          )
@@ -215,6 +215,7 @@ dist_deltaNterm1to337 <-
   Biostrings::stringDist(method="hamming") %>%
   broom::tidy() %>%
   dplyr::transmute(ID1=factor(item1,levels=Dis3L2_treeIQML_orderonly),
+                   ID1rev=factor(item1,levels=rev(Dis3L2_treeIQML_orderonly)),
                    ID2=factor(item2,levels=Dis3L2_treeIQML_orderonly),
                    ID2rev=factor(item2,levels=rev(Dis3L2_treeIQML_orderonly)),
                    seqwidth=1071,
@@ -226,6 +227,7 @@ dist_CSD12 <-
   Biostrings::stringDist(method="hamming") %>%
   broom::tidy() %>%
   dplyr::transmute(ID1=factor(item1,levels=Dis3L2_treeIQML_orderonly),
+                   ID1rev=factor(item1,levels=rev(Dis3L2_treeIQML_orderonly)),
                    ID2=factor(item2,levels=Dis3L2_treeIQML_orderonly),
                    ID2rev=factor(item2,levels=rev(Dis3L2_treeIQML_orderonly)),
                    seqwidth=324,
@@ -237,32 +239,66 @@ dist_RNII <-
   Biostrings::stringDist(method="hamming") %>%
   broom::tidy() %>%
   dplyr::transmute(ID1=factor(item1,levels=Dis3L2_treeIQML_orderonly),
+                   ID1rev=factor(item1,levels=rev(Dis3L2_treeIQML_orderonly)),
                    ID2=factor(item2,levels=Dis3L2_treeIQML_orderonly),
                    ID2rev=factor(item2,levels=rev(Dis3L2_treeIQML_orderonly)),
                    seqwidth=357,
                 percid = (seqwidth-distance)/seqwidth * 100) 
 ```
 
+### Spot-check percent identity of CSDs
+
+```{r check_percent_identity_CSDs,dependson="calculate_percent_identity",results="show"}
+Dis3L2_nameext_few <- 
+  Dis3L2_features_df %>%
+  filter(
+    Organism %in% c("Saccharomyces cerevisiae",
+                    "Cryptococcus neoformans", 
+                    "Schizosaccharomyces pombe",
+                    "Homo sapiens")
+  ) %>%
+  transmute(ID, 
+            Shortname = str_replace(Organism,"([A-Z])[a-z]+", "\\1.") %>% 
+              paste(Extension)
+            )
+
+dist_CSD12 %>% 
+  select(ID1,ID2,percid) %>%
+  inner_join( Dis3L2_nameext_few %>% rename(ID1 = ID, Shortname1=Shortname) ) %>%
+  inner_join( Dis3L2_nameext_few %>% rename(ID2 = ID, Shortname2=Shortname) ) 
+```
+
+### Spot-check percent identity of RNII
+
+```{r check_percent_identity_RNII,dependson="check_percent_identity_CSDs",results="show"}
+dist_RNII %>% 
+  select(ID1,ID2,percid) %>%
+  inner_join( Dis3L2_nameext_few %>% rename(ID1 = ID, Shortname1=Shortname) ) %>%
+  inner_join( Dis3L2_nameext_few %>% rename(ID2 = ID, Shortname2=Shortname) ) 
+```
+
 ### Plot percent identity matrices as heatmaps
 
-```{r plot percent_identity,dependson="calculate_percent_identity",fig.height=4,fig.width=4.5,echo=FALSE}
-ggplot(dist_deltaNterm1to337,aes(x=ID1,y=ID2rev,fill=percid)) + 
+```{r plot percent_identity,dependson="calculate_percent_identity",fig.height=4,fig.width=4,echo=FALSE}
+ggplot(dist_deltaNterm1to337,aes(x=ID2,y=ID1rev,fill=percid)) + 
   geom_tile() + 
   scale_fill_gradient("Percent\nidentity",
                       low="white",high="darkblue",limits=c(0,100)) + 
   theme_void() + 
-  ggtitle("deltaNterm 1to337")
+  ggtitle("deltaNterm 1to337")  + 
+  theme(legend.position = c(0.8,0.8))
 
 plotdist_CSD12 <- 
-ggplot(dist_CSD12,aes(x=ID1,y=ID2rev,fill=percid)) + 
+ggplot(dist_CSD12,aes(x=ID2,y=ID1rev,,fill=percid)) + 
   geom_tile() + 
   scale_fill_gradient("Percent\nidentity",
                       low="white",high="darkblue",limits=c(0,100)) + 
   theme_void() + 
   ggtitle("CSD1+2 domains")
+plotdist_CSD12  + theme(legend.position = c(0.8,0.8))
 
 plotdist_RNII <- 
-ggplot(dist_RNII,aes(x=ID1,y=ID2rev,fill=percid)) + 
+ggplot(dist_RNII,aes(x=ID2,y=ID1rev,fill=percid)) + 
   geom_tile() + 
   scale_fill_gradient("Percent identity",
                       low="white",high="darkblue",limits=c(0,100),
@@ -272,6 +308,15 @@ ggplot(dist_RNII,aes(x=ID1,y=ID2rev,fill=percid)) +
   ) + 
   theme_void() +
   ggtitle("RNII domain")
+plotdist_RNII + theme(legend.position = c(0.75,0.75))
+
+plotcladogram <- 
+  ggtree(tree_IQML,branch.length="none") %<+% 
+  dplyr::rename(Dis3L2_features_df,label=ID) +
+  geom_tippoint(aes(colour=Clade),position=position_nudge(x = 2)) + 
+  scale_colour_brewer(type="qual",palette="Dark2",
+                      guide = guide_legend(order = 1),na.value = "black") +
+  theme(legend.position = "none")
 
 plotclade_stripe <- 
   ggplot(data=Dis3L2_features_df %>%
@@ -285,25 +330,20 @@ plotclade_stripe <-
 
 ### Plot  percent identity of domains including cladogram information
 
-```{r percent_identity_cladogram,dependson="percent_identity",fig.height=4,fig.width=8,echo=FALSE}
+```{r percent_identity_cladogram,dependson="percent_identity",fig.height=4.05,fig.width=8,echo=FALSE}
 percent_identity_cladogram <-
-  plot_grid(ggtree(tree_IQML,branch.length="none"),
-            plotclade_stripe + 
-              theme(legend.position="none",
-                    plot.title = element_text(hjust = 1.0)),
+  plot_grid(plotcladogram,
             plotdist_CSD12 + 
-              theme(legend.position="none",
-                    plot.title = element_text(hjust = 0.5)),
+              theme(legend.position="none"),
             plotdist_RNII   + 
-              theme(legend.position=c(0.4, 0.1),
-                    legend.background = element_rect(colour="grey75"),
-                    plot.title = element_text(hjust = 0.5)),
-            rel_widths=c(15,5,100,100),nrow=1,align="h")
+              theme(legend.position=c(0.75, 0.85),
+                    legend.background = element_rect(colour="grey75")),
+            rel_widths=c(20,100,100),nrow=1,align="h")
 percent_identity_cladogram
 
-ggsave(filename = here::here("figure","figure3_percent_identity_cladogram.png"), 
+ggsave(filename = here::here("figure","figure3_percent_identity_cladogram.pdf"), 
        plot = percent_identity_cladogram,
-       width = 8, height = 4)
+       width = 8, height = 4.05)
 ```
 
 # Session Info
