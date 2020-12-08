@@ -419,7 +419,7 @@ summary {
 
 <div id="summary" class="section level1">
 <h1>Summary</h1>
-<p>This file calculates information and features of Dis3L2/Ssd1 homologs, from multiple sequence alignments in <code>data/Dis3L2_only</code>, files <code>Dis3L2_BLASTp_select_fullseqs_mafftlocal.fasta</code>. These features include:</p>
+<p>This script calculates information and features of Dis3L2/Ssd1 homologs, from multiple sequence alignments in <code>data/Dis3L2_only/Dis3L2_BLASTp_select_fullseqs_mafftlocal.fasta</code>. These features include:</p>
 <ul>
 <li>sequence ids</li>
 <li>species and summary taxonomic information</li>
@@ -428,6 +428,8 @@ summary {
 <li>Cyclin-dependent kinase Cdk1 consensus phosphorylation site</li>
 <li>predicted nuclear localisation sequence</li>
 </ul>
+<p>They are output to the file <code>data/Dis3L2_only/Dis3L2_BLASTp_select_features.txt</code>.</p>
+<p>This data is later used to build Figure 2C.</p>
 <div id="load-dis3l2-sequences" class="section level2">
 <h2>Load Dis3L2 sequences</h2>
 <pre class="r"><code>Dis3L2_Ntermaln &lt;- 

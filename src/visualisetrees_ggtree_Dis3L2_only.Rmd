@@ -9,12 +9,15 @@ output:
 
 # Summary
 
-This document is to analyse phylogenetic trees produced for Ssd1/Dis3L2 homologs.
+This script analyses phylogenetic trees produced for Ssd1/Dis3L2 homologs only.
 
-Full raw sequences are in: `data/Dis3_families/Dis3L2_BLASTp_select_fullseqs.fasta`. 
+Inputs:
+* Full raw sequences are in: `data/Dis3_families/Dis3L2_BLASTp_select_fullseqs.fasta`. 
+* File `data/Dis3L2_only/Dis3L2_BLASTp_select_fullseqs_mafftlocal_trimal_deltaNterm1to337.fasta` has the mafft-default-aligned, reordered, trimmed sequences. We ran IQ-TREE and RaxML on those files on the CIPRES server. This file analyses and visualises phylogenetic data from IQ-TREE results.
+* IQ-TREE results in `data/IQ-TREE_Dis3L2_only/output.treefile`
+* Sequence features in `data/Dis3L2_only/Dis3L2_BLASTp_select_features.txt`.
 
-File `data/Dis3L2_only/Dis3L2_BLASTp_select_fullseqs_mafftlocal_trimal_deltaNterm1to337.fasta` has the mafft-default-aligned, reordered, trimmed sequences. We ran IQ-TREE and RaxML on those files on the CIPRES server. This file analyses phylogenetic data from IQ-TREE results.
-
+Outputs:
 * Phylogenetic trees with bootstrap and clade information (figure 2B)
 * Matched heatmaps of protein feature information (figure 2C)
 * Percent identity matrix of domains CSD1+2 and RNII (figure 3)
@@ -280,7 +283,7 @@ dist_RNII %>%
 ### Plot percent identity matrices as heatmaps
 
 ```{r plot percent_identity,dependson="calculate_percent_identity",fig.height=4,fig.width=4,echo=FALSE}
-ggplot(dist_deltaNterm1to337,aes(x=ID2,y=ID1rev,fill=percid)) + 
+ggplot(dist_deltaNterm1to337,aes(x=ID1,y=ID2rev,fill=percid)) + 
   geom_tile() + 
   scale_fill_gradient("Percent\nidentity",
                       low="white",high="darkblue",limits=c(0,100)) + 
@@ -289,7 +292,7 @@ ggplot(dist_deltaNterm1to337,aes(x=ID2,y=ID1rev,fill=percid)) +
   theme(legend.position = c(0.8,0.8))
 
 plotdist_CSD12 <- 
-ggplot(dist_CSD12,aes(x=ID2,y=ID1rev,,fill=percid)) + 
+ggplot(dist_CSD12,aes(x=ID1,y=ID2rev,fill=percid)) + 
   geom_tile() + 
   scale_fill_gradient("Percent\nidentity",
                       low="white",high="darkblue",limits=c(0,100)) + 
@@ -298,7 +301,7 @@ ggplot(dist_CSD12,aes(x=ID2,y=ID1rev,,fill=percid)) +
 plotdist_CSD12  + theme(legend.position = c(0.8,0.8))
 
 plotdist_RNII <- 
-ggplot(dist_RNII,aes(x=ID2,y=ID1rev,fill=percid)) + 
+ggplot(dist_RNII,aes(x=ID1,y=ID2rev,fill=percid)) + 
   geom_tile() + 
   scale_fill_gradient("Percent identity",
                       low="white",high="darkblue",limits=c(0,100),

@@ -7,7 +7,7 @@ output: html_document
 
 # Summary
 
-This file calculates information and features of Dis3L2/Ssd1 homologs, from multiple sequence alignments in `data/Dis3L2_only`, files `Dis3L2_BLASTp_select_fullseqs_mafftlocal.fasta`.
+This script calculates information and features of Dis3L2/Ssd1 homologs, from multiple sequence alignments in `data/Dis3L2_only/Dis3L2_BLASTp_select_fullseqs_mafftlocal.fasta`.
 These features include:
 
 * sequence ids
@@ -17,6 +17,9 @@ These features include:
 * Cyclin-dependent kinase Cdk1 consensus phosphorylation site 
 * predicted nuclear localisation sequence
 
+They are output to the file `data/Dis3L2_only/Dis3L2_BLASTp_select_features.txt`.
+
+This dataset is later used to build Figure 2C.
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
