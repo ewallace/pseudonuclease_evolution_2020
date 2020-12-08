@@ -231,3 +231,11 @@ write_lines(c("# Dis3L2_BLASTp_select_features.txt",
 write_tsv(Dis3L2_features_df, path=Dis3L2_features_file, 
           col_names = TRUE, append=TRUE)
 ```
+
+# Session Info
+
+Package versions, etc., that ran this file.
+
+```{r session_info,results="show",message=TRUE}
+sessionInfo()
+```
