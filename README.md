@@ -5,7 +5,8 @@ Evolutionary analysis of Dis3 / RNase II- family enzymes including the Ssd1 pseu
 This repository forms the supplementary data and analysis for the manuscript:
 
 *Repeated evolution of inactive pseudonucleases in a fungal branch of the Dis3/RNase II family of nucleases*; 
-E.R. Ballou, A.G. Cook, E.W.J. Wallace. 2020.
+E.R. Ballou, A.G. Cook, E.W.J. Wallace. Molecular Biology and Evolution, 2020.
+DOI: [10.1093/molbev/msaa324](http://dx.doi.org/10.1093/molbev/msaa324)
 
 Every directory has a README.md that describes the contents in more detail.
 
