@@ -1,6 +1,8 @@
+[![DOI](https://zenodo.org/badge/280423586.svg)](https://zenodo.org/badge/latestdoi/280423586)
+
 # pseudonuclease_evolution_2020
 
-Evolutionary analysis of Dis3 / RNase II- family enzymes including the Ssd1 pseudonuclease
+Evolutionary analysis of Dis3/RNase II-family enzymes, including the fungal Ssd1 pseudonuclease.
 
 This repository forms the supplementary data and analysis for the manuscript:
 
