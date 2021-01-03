@@ -35,7 +35,12 @@ The `..._Nterm1to337.fasta` files is used for some feature calculations.
 
 ## Dis3L2_BLASTp_select_taxa.txt
 
-Table with taxonomic information separated out from fasta headers.
+Taxonomic information for Dis3L2/Ssd1 homologs.
+Table with taxonomic information, separated out from fasta headers.
 
 ## Dis3L2_BLASTp_select_features.txt
 
+Information and features of Dis3L2/Ssd1 homologs 
+calculated from Dis3L2_BLASTp_select_fullseqs_mafftlocal.fasta, etc.
+taxonomic info, active site, cbk1 consensus phosphorylation site, cdk1 sites, nuclear localisation sequence.
+See `src/estimate_features_Dis3L2_only.Rmd` for full descriptions and code
