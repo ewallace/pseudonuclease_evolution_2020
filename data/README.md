@@ -23,8 +23,8 @@ Data filtered to include only Dis3L2 / Ssd1 - family proteins, for figures 2 and
 
 ## IQ-TREE_Ssd1Dis3L2_76bh
 
-IQ-TREE phylogeny results for BLASTp filtered by hand Dis3/Dis3L1/Dis3L2/Dss1 homologs.
+IQ-TREE phylogeny results for BLASTp filtered by hand Dis3/Dis3L1/Dis3L2/Dss1 homologs, for figure 1.
 
 ## IQ-TREE_Dis3L2_only
 
-IQ-TREE phylogeny results for Dis3L2-specific homologs.
+IQ-TREE phylogeny results for Dis3L2-specific homologs, for figure 2.
